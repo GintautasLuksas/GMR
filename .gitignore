@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+myenv/Lib/
 lib64/
 parts/
 sdist/
@@ -130,7 +130,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
-env/
+myenv/
 venv/
 ENV/
 env.bak/
@@ -169,3 +169,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+.idea
+
