@@ -51,7 +51,7 @@
 50. Alien,1979,8.5,117,0,R
 51. Rear Window,1954,8.5,112,539000,PG
 52. Once Upon a Time in the West,1968,8.5,166,363000,PG-13
-53. Dune: Part Two,2024,8.5,166,582000,PG-13
+53. Dune: Part Two,2024,8.5,166,583000,PG-13
 54. Django Unchained,2012,8.5,165,0,R
 55. City Lights,1931,8.5,87,204000,G
 56. Apocalypse Now,1979,8.4,147,733000,R
@@ -110,7 +110,7 @@
 109. Up,2009,8.3,96,0,R
 110. Vertigo,1958,8.3,128,440000,R
 111. Amélie,2001,8.3,122,811000,Approved
-112. Oppenheimer,2023,8.3,180,841000,PG-13
+112. Oppenheimer,2023,8.3,180,842000,PG-13
 113. A Clockwork Orange,1971,8.2,136,902000,R
 114. To Kill a Mockingbird,1962,8.3,129,340000,PG
 115. A Separation,2011,8.3,118,266000,PG
@@ -119,7 +119,7 @@
 118. Like Stars on Earth,2007,8.3,162,214000,R
 119. Indiana Jones and the Last Crusade,1989,8.2,127,830000,R
 120. Metropolis,1927,8.3,153,192000,R
-121. Snatch,2000,8.2,102,934000,Not Rated
+121. Snatch,2000,8.2,102,935000,Not Rated
 122. 1917,2019,8.2,119,712000,R
 123. L.A. Confidential,1997,8.2,138,635000,Not Rated
 124. Bicycle Thieves,1948,8.3,89,182000,R
@@ -161,13 +161,13 @@
 160. The Elephant Man,1980,8.2,124,267000,G
 161. Dial M for Murder,1954,8.2,105,195000,R
 162. Rashomon,1950,8.2,88,187000,R
-163. Gone with the Wind,1939,8.2,238,342000,R
+163. Gone with the Wind,1939,8.2,238,343000,R
 164. Chinatown,1974,8.1,130,361000,PG
-165. The Secret in Their Eyes,2009,8.2,129,230000,R
-"166. Lock, Stock and Two Smoking Barrels",1998,8.1,107,629000,PG
+165. The Secret in Their Eyes,2009,8.2,129,230000,PG
+"166. Lock, Stock and Two Smoking Barrels",1998,8.1,107,630000,R
 167. Klaus,2019,8.2,96,209000,R
-168. V for Vendetta,2005,8.1,132,0,R
-169. Inside Out,2015,8.1,95,851000,PG
+168. Inside Out,2015,8.1,95,851000,R
+169. V for Vendetta,2005,8.1,132,0,PG
 "170. Three Billboards Outside Ebbing, Missouri",2017,8.1,115,573000,R
 171. Raging Bull,1980,8.1,129,391000,PG-13
 172. The Bridge on the River Kwai,1957,8.1,161,239000,R
@@ -185,9 +185,9 @@
 184. Children of Heaven,1997,8.2,89,84000,R
 185. 12 Years a Slave,2013,8.1,134,757000,R
 186. Barry Lyndon,1975,8.1,185,190000,R
-187. Blade Runner,1982,8.1,117,844000,R
-188. Before Sunrise,1995,8.1,101,353000,PG
-189. The Grand Budapest Hotel,2014,8.1,99,913000,R
+187. Before Sunrise,1995,8.1,101,353000,R
+188. Blade Runner,1982,8.1,117,845000,PG
+189. The Grand Budapest Hotel,2014,8.1,99,914000,R
 190. Hacksaw Ridge,2016,8.1,139,624000,Not Rated
 191. Dead Poets Society,1989,8.1,128,578000,R
 192. Gone Girl,2014,8.1,149,0,G
@@ -197,8 +197,8 @@
 196. The Gold Rush,1925,8.1,95,122000,PG
 197. Ratatouille,2007,8.1,111,867000,PG
 198. Wild Tales,2014,8.1,122,225000,R
-199. Demon Slayer: Kimetsu no Yaiba - Tsuzumi Mansion Arc,2021,8.7,87,29000,Passed
-200. How to Train Your Dragon,2010,8.1,98,829000,Passed
+199. How to Train Your Dragon,2010,8.1,98,829000,Passed
+200. Demon Slayer: Kimetsu no Yaiba - Tsuzumi Mansion Arc,2021,8.6,87,29000,Passed
 201. Jaws,1975,8.1,124,685000,Not Rated
 202. The Deer Hunter,1978,8.1,183,372000,PG-13
 203. Sherlock Jr.,1924,8.2,45,60000,Not Rated
@@ -212,7 +212,7 @@
 211. Wild Strawberries,1957,8.1,92,119000,R
 212. The Third Man,1949,8.1,104,188000,Not Rated
 213. Logan,2017,8.1,137,876000,R
-214. Rocky,1976,8.1,120,650000,R
+214. Rocky,1976,8.1,120,651000,R
 215. Tokyo Story,1953,8.1,137,72000,R
 216. The Big Lebowski,1998,8.1,117,881000,PG-13
 217. The Seventh Seal,1957,8.1,96,205000,PG-13
@@ -226,14 +226,14 @@
 225. Jai Bhim,2021,8.7,164,223000,G
 226. Before Sunset,2004,8.1,80,298000,PG
 227. The Best Years of Our Lives,1946,8.1,170,73000,R
-228. The Passion of Joan of Arc,1928,8.1,114,63000,R
+228. The Passion of Joan of Arc,1928,8.1,114,63000,G
 229. The Exorcist,1973,8.1,122,471000,R
-230. The Wizard of Oz,1939,8.1,102,444000,G
+230. The Wizard of Oz,1939,8.1,102,445000,R
 231. The Incredibles,2004,8.0,115,841000,G
 232. Rush,2013,8.1,123,528000,Not Rated
-233. Network,1976,8.1,121,176000,Not Rated
+233. The Sound of Music,1965,8.1,172,272000,Not Rated
 234. Stand by Me,1986,8.1,89,457000,Approved
-235. The Sound of Music,1965,8.1,172,271000,PG
+235. Network,1976,8.1,121,176000,PG
 236. Hachi: A Dog's Tale,2009,8.1,93,323000,Not Rated
 237. My Father and My Son,2005,8.2,112,96000,R
 238. The Handmaiden,2016,8.1,145,183000,Approved
@@ -243,4 +243,4 @@
 242. Into the Wild,2007,8.1,148,673000,PG-13
 243. The Grapes of Wrath,1940,8.1,129,103000,Approved
 244. A Man Escaped,1956,8.2,101,28000,Not Rated
-245. Groundhog Day,1993,8.0,101,706000,TV-MA
+245. Groundhog Day,1993,8.0,101,706000,Not Rated
