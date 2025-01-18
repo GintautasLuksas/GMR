@@ -48,14 +48,15 @@ def scrape_imdb_data(url):
         movie_rate_amounts = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/div/div[3]/section/div/div[2]/div/ul/li/div[2]/div/div/span/div/span/span[2]')
         movie_group = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/div/div[3]/section/div/div[2]/div/ul/li/div[2]/div/div/div[2]/span[3]')
 
-        min_length = min(len(movie_titles), len(movie_years), len(movie_rates), len(movie_lengths),
+        # Ensure we get the minimum length of the lists to prevent index errors
+        min_length = max(len(movie_titles), len(movie_years), len(movie_rates), len(movie_lengths),
                          len(movie_rate_amounts), len(movie_group))
 
         data = []
         for i in range(min_length):
-            title = movie_titles[i].text
-            year = movie_years[i].text
-            rate_text = movie_rates[i].text
+            title = movie_titles[i].text if i < len(movie_titles) else 'N/A'
+            year = movie_years[i].text if i < len(movie_years) else 'N/A'
+            rate_text = movie_rates[i].text if i < len(movie_rates) else 'N/A'
             length = time_to_minutes(movie_lengths[i].text) if i < len(movie_lengths) else 0
             rate_amount = clean_rating_amount(movie_rate_amounts[i].text) if i < len(movie_rate_amounts) else 0
             group = movie_group[i].text if i < len(movie_group) else 'N/A'

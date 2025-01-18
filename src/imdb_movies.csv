@@ -49,7 +49,7 @@
 48. Cinema Paradiso,1988,8.5,174,296000,PG
 49. Modern Times,1936,8.5,87,269000,G
 50. Alien,1979,8.5,117,0,R
-51. Rear Window,1954,8.5,112,539000,PG
+51. Rear Window,1954,8.5,112,540000,PG
 52. Once Upon a Time in the West,1968,8.5,166,363000,PG-13
 53. Dune: Part Two,2024,8.5,166,583000,PG-13
 54. Django Unchained,2012,8.5,165,0,R
@@ -89,7 +89,7 @@
 88. Singin' in the Rain,1952,8.3,103,269000,NC-17
 89. Capernaum,2018,8.4,126,113000,G
 90. Come and See,1985,8.3,142,108000,PG
-91. Requiem for a Dream,2000,8.3,102,926000,R
+91. Requiem for a Dream,2000,8.3,102,927000,R
 92. Toy Story 3,2010,8.3,103,920000,R
 93. Star Wars: Episode VI - Return of the Jedi,1983,8.3,131,0,Not Rated
 94. The Hunt,2012,8.3,115,381000,G
@@ -99,7 +99,7 @@
 98. Reservoir Dogs,1992,8.3,99,0,R
 99. The Apartment,1960,8.3,125,205000,R
 100. Lawrence of Arabia,1962,8.3,227,325000,Approved
-101. Incendies,2010,8.3,131,219000,Approved
+101. Incendies,2010,8.3,131,220000,Approved
 102. Scarface,1983,8.3,170,949000,PG
 103. Double Indemnity,1944,8.3,107,173000,R
 104. North by Northwest,1959,8.3,136,357000,Passed
@@ -143,7 +143,7 @@
 142. Casino,1995,8.2,178,583000,PG-13
 143. The Sixth Sense,1999,8.2,107,0,R
 144. Ran,1985,8.2,160,141000,R
-145. Top Gun: Maverick,2022,8.2,130,752000,R
+145. Top Gun: Maverick,2022,8.2,130,753000,R
 146. No Country for Old Men,2007,8.2,122,0,R
 147. Pan's Labyrinth,2006,8.2,118,718000,PG-13
 148. The Thing,1982,8.2,109,489000,R
@@ -157,7 +157,7 @@
 156. The Great Escape,1963,8.2,172,265000,PG
 157. Monty Python and the Holy Grail,1975,8.2,91,582000,PG
 158. Howl's Moving Castle,2004,8.2,119,473000,PG
-159. The Wild Robot,2024,8.2,102,116000,Not Rated
+159. The Wild Robot,2024,8.2,102,117000,Not Rated
 160. The Elephant Man,1980,8.2,124,267000,G
 161. Dial M for Murder,1954,8.2,105,195000,R
 162. Rashomon,1950,8.2,88,187000,R
@@ -176,7 +176,7 @@
 175. Fargo,1996,8.1,98,745000,R
 176. Warrior,2011,8.1,140,509000,PG-13
 177. Harry Potter and the Deathly Hallows: Part 2,2011,8.1,130,982000,PG-13
-178. Gran Torino,2008,8.1,116,831000,G
+178. Gran Torino,2008,8.1,116,832000,G
 179. Spider-Man: No Way Home,2021,8.2,148,929000,R
 180. Million Dollar Baby,2004,8.1,132,739000,G
 181. My Neighbor Totoro,1988,8.1,86,399000,PG
@@ -198,8 +198,8 @@
 197. Ratatouille,2007,8.1,111,867000,PG
 198. Wild Tales,2014,8.1,122,225000,R
 199. How to Train Your Dragon,2010,8.1,98,829000,Passed
-200. Demon Slayer: Kimetsu no Yaiba - Tsuzumi Mansion Arc,2021,8.6,87,29000,Passed
-201. Jaws,1975,8.1,124,685000,Not Rated
+200. Jaws,1975,8.1,124,685000,Passed
+201. Demon Slayer: Kimetsu no Yaiba - Tsuzumi Mansion Arc,2021,8.6,87,29000,Not Rated
 202. The Deer Hunter,1978,8.1,183,372000,PG-13
 203. Sherlock Jr.,1924,8.2,45,60000,Not Rated
 204. The General,1926,8.1,78,101000,Approved
@@ -244,3 +244,8 @@
 243. The Grapes of Wrath,1940,8.1,129,103000,Approved
 244. A Man Escaped,1956,8.2,101,28000,Not Rated
 245. Groundhog Day,1993,8.0,101,706000,Not Rated
+246. Amores Perros,2000,8.0,154,258000,N/A
+247. The Help,2011,8.1,146,507000,N/A
+248. Rebecca,1940,8.1,130,151000,N/A
+249. A Silent Voice: The Movie,2016,8.1,130,113000,N/A
+250. Andhadhun,2018,8.2,139,107000,N/A

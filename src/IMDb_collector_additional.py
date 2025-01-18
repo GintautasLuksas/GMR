@@ -22,36 +22,59 @@ def scrape_additional_info(url):
         info_buttons = driver.find_elements(By.XPATH,
                                             '//*[@id="__next"]/main/div/div[3]/section/div/div[2]/div/ul/li/div[3]/button')
 
+        print(f"Found {len(info_buttons)} movie buttons.")  # Debugging: confirm number of buttons found
+
         data = []
 
         for i, button in enumerate(info_buttons):
             try:
-                # Scroll to the button and click it
-                driver.execute_script("arguments[0].scrollIntoView();", button)
-                button.click()
+                print(f"Scraping movie {i + 1}...")  # Debugging: log current movie being scraped
 
-                time.sleep(2)  # Wait for the modal to load
+                # Scroll to the button and click it
+                driver.execute_script("arguments[0].scrollIntoView(true);", button)
+                time.sleep(1)  # Add a slight delay after scrolling
+
+                retry_count = 3
+                while retry_count > 0:
+                    try:
+                        button.click()
+                        break
+                    except Exception:
+                        retry_count -= 1
+                        time.sleep(1)
+
+                if retry_count == 0:
+                    raise Exception("Failed to click the button after retries.")
+
+                time.sleep(3)  # Wait for the modal to load
 
                 # Scrape short description
-                short_description = driver.find_element(By.XPATH,
-                                                        '/html/body/div[4]/div[2]/div/div[2]/div/div/div[2]').text
+                try:
+                    short_description = driver.find_element(By.XPATH,
+                                                            '/html/body/div[4]/div[2]/div/div[2]/div/div/div[2]').text
+                except Exception:
+                    short_description = "N/A"
 
                 # Scrape director
-                director_elements = driver.find_elements(By.XPATH,
-                                                         '/html/body/div[4]/div[2]/div/div[2]/div/div/div[3]/div[1]/ul/li')
-                directors = ", ".join([elem.text for elem in director_elements])
+                try:
+                    director_elements = driver.find_elements(By.XPATH,
+                                                             '/html/body/div[4]/div[2]/div/div[2]/div/div/div[3]/div[1]/ul/li')
+                    directors = ", ".join([elem.text for elem in director_elements])
+                except Exception:
+                    directors = "N/A"
 
                 # Scrape stars
-                star_elements = driver.find_elements(By.XPATH,
-                                                     '/html/body/div[4]/div[2]/div/div[2]/div/div/div[3]/div[2]/ul/li')
-                stars = ", ".join([elem.text for elem in star_elements])
+                try:
+                    star_elements = driver.find_elements(By.XPATH,
+                                                         '/html/body/div[4]/div[2]/div/div[2]/div/div/div[3]/div[2]/ul/li')
+                    stars = ", ".join([elem.text for elem in star_elements])
+                except Exception:
+                    stars = "N/A"
 
                 data.append([short_description, directors, stars])
 
                 # Simulate pressing the ESC key to close the modal
-                actions = ActionChains(driver)
-                actions.send_keys(Keys.ESCAPE).perform()  # Simulate pressing the ESC key
-
+                ActionChains(driver).send_keys(Keys.ESCAPE).perform()
                 time.sleep(1)  # Wait for the modal to close
 
             except Exception as e:
