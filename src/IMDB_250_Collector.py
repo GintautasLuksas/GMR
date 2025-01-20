@@ -30,11 +30,9 @@ def clean_rating_amount(rate_amount_text):
     return 0
 
 def remove_number_prefix(title):
-    '''Remove the numeric prefix (e.g., "1. ", "2. ") from movie titles.'''
-    parts = title.split()
-    if len(parts) > 1 and parts[0].isdigit() and parts[1] == '.':
-        return ' '.join(parts[2:])
-    return title
+    """Remove numeric prefixes like '1. ' or '1.' from movie titles."""
+    import re
+    return re.sub(r'^\d+\.\s*', '', title)
 
 def scrape_imdb_data(url):
     '''Scrape IMDb movie data from the given URL.'''
