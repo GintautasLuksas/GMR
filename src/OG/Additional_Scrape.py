@@ -1,4 +1,3 @@
-import time
 import csv
 import logging
 from selenium import webdriver
@@ -8,6 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+import time
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
@@ -29,7 +29,7 @@ def accept_cookies(driver):
     except Exception as e:
         logger.error("No cookies acceptance button found: %s", e)
 
-def load_more_movies(driver, show_more_button_xpath, target_films=150):
+def load_more_movies(driver, show_more_button_xpath, target_films=4000):
     films_loaded = 0
     while films_loaded < target_films:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -116,7 +116,7 @@ def scrape_additional_info(driver):
 
 
 
-def save_to_csv(data, filename='IMDB710.csv'):
+def save_to_csv(data, filename='IMDB710_Additional.csv'):
     """Save the collected data to a CSV file."""
     header = ['Short Description', 'Directors', 'Stars']
     try:
@@ -144,7 +144,7 @@ def main():
 
         # Load 150 movies
         show_more_button_xpath = '//*[@id="__next"]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[2]/div[2]/div/span/button'
-        films_loaded = load_more_movies(driver, show_more_button_xpath, target_films=50)
+        films_loaded = load_more_movies(driver, show_more_button_xpath, target_films=4000)
 
         # Go back to the top of the page
         driver.execute_script("window.scrollTo(0, 0);")
