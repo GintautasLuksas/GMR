@@ -1,4 +1,5 @@
 import csv
+import os
 import logging
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -10,14 +11,23 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 # Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("imdb_scraper.log"),  # Log to file
+        logging.StreamHandler()  # Log to console
+    ]
+)
 logger = logging.getLogger()
 
 def zoom_out(driver, zoom_percentage=50):
+    """Zoom out the page."""
     driver.execute_script(f"document.body.style.zoom='{zoom_percentage}%'")
     logger.info(f"Page zoom set to {zoom_percentage}%.")
 
 def accept_cookies(driver):
+    """Accept cookies if the button is present."""
     try:
         accept_button = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div/div/div[2]/div/button[2]'))
@@ -27,9 +37,10 @@ def accept_cookies(driver):
         logger.info("Cookies accepted.")
         time.sleep(2)
     except Exception as e:
-        logger.error("No cookies acceptance button found: %s", e)
+        logger.warning("No cookies acceptance button found: %s", e)
 
 def load_more_movies(driver, show_more_button_xpath, target_films=4000):
+    """Scroll and load more movies."""
     films_loaded = 0
     while films_loaded < target_films:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -44,32 +55,38 @@ def load_more_movies(driver, show_more_button_xpath, target_films=4000):
             time.sleep(2)  # Allow new content to load
 
             films_loaded += 50
-            logger.info(f"Films loaded: {films_loaded}")
+            logger.info(f"Films loaded so far: {films_loaded}")
         except Exception as e:
             logger.info("No 'Show More' button found. Reached the bottom of the page.")
             break
 
     return films_loaded
 
-def click_element_if_in_view(driver, element):
+def save_row_to_csv(row, filename='IMDB710_Additional.csv'):
+    """
+    Save a single row of data to a CSV file. Appends to the file if it exists.
+    """
+    file_exists = os.path.exists(filename)
     try:
-        driver.execute_script("arguments[0].scrollIntoView(true);", element)
-        time.sleep(1)  # Allow a short time for the element to become visible
-        element.click()
-        logger.info("Clicked on the element.")
+        with open(filename, mode='a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            if not file_exists:  # Write header only once
+                header = ['Directors', 'Stars']
+                writer.writerow(header)
+            writer.writerow(row)
+        logger.info(f"Row saved to {filename}: {row}")
     except Exception as e:
-        logger.error("Error clicking element: %s", e)
+        logger.error("Error saving row to CSV: %s", e)
 
-
-def scrape_additional_info(driver):
-    '''Scrape additional IMDb movie information: director and stars.'''
-    # Locate the buttons that open the additional information modal
+def scrape_additional_info(driver, output_file='IMDB710_Additional.csv'):
+    """
+    Scrape additional IMDb movie information: director and stars.
+    Write each result directly to the CSV file.
+    """
     info_buttons = driver.find_elements(By.XPATH, './/div[1]/div[3]/button')
-    data = []
-
+    logger.info(f"Found {len(info_buttons)} movies to scrape.")
     for i, button in enumerate(info_buttons):
         try:
-            # Scroll until the movie is in view
             driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", button)
             time.sleep(2)
 
@@ -87,46 +104,26 @@ def scrape_additional_info(driver):
 
             time.sleep(3)
 
-            # Log and extract director information
+            # Scrape director information
             director_elements = driver.find_elements(By.XPATH, '/html/body/div[4]/div[2]/div/div[2]/div/div/div[3]/div[1]/ul/li/a')
             directors = ", ".join([elem.text for elem in director_elements])
-            logger.info(f"Directors: {directors}")  # Log director information
 
-            # Log and extract star information
+            # Scrape star information
             star_elements = driver.find_elements(By.XPATH, '/html/body/div[4]/div[2]/div/div[2]/div/div/div[3]/div[2]/ul/li/a')
             stars = ", ".join([elem.text for elem in star_elements])
-            logger.info(f"Stars: {stars}")  # Log star information
 
-            data.append([directors, stars])
+            # Save each row to CSV immediately
+            save_row_to_csv([directors, stars], output_file)
 
-            logger.info(f"Scraped movie {i + 1}")
+            logger.info(f"Scraped and saved movie {i + 1}.")
 
             # Close the modal by pressing the ESC key
             ActionChains(driver).send_keys(Keys.ESCAPE).perform()
             time.sleep(1)
 
-            # After scraping a movie, scroll down slightly to load the next set of movies
-            driver.execute_script("window.scrollBy(0, 200);")
-            time.sleep(1)
-
         except Exception as e:
             logger.error(f"Error scraping movie {i + 1}: %s", e)
-
-    return data
-
-
-
-def save_to_csv(data, filename='IMDB710_Additional.csv'):
-    """Save the collected data to a CSV file."""
-    header = ['Short Description', 'Directors', 'Stars']
-    try:
-        with open(filename, mode='w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            writer.writerow(header)
-            writer.writerows(data)
-        logger.info(f"Data saved to {filename}")
-    except Exception as e:
-        logger.error("Error saving data to CSV: %s", e)
+            # Proceed to the next movie button
 
 def main():
     chromedriver_path = r'D:\drivers\chromedriver-win64\chromedriver.exe'
@@ -145,19 +142,18 @@ def main():
         # Load 150 movies
         show_more_button_xpath = '//*[@id="__next"]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[2]/div[2]/div/span/button'
         films_loaded = load_more_movies(driver, show_more_button_xpath, target_films=4000)
+        logger.info(f"Total films loaded: {films_loaded}")
 
         # Go back to the top of the page
         driver.execute_script("window.scrollTo(0, 0);")
         time.sleep(2)
 
         # Scrape additional information
-        movie_data = scrape_additional_info(driver)
-
-        # Save data to CSV
-        save_to_csv(movie_data)
+        scrape_additional_info(driver, output_file='IMDB710_Additional.csv')
 
     finally:
         driver.quit()
+        logger.info("Scraping process completed.")
 
 if __name__ == "__main__":
     main()

@@ -32,11 +32,11 @@ def accept_cookies(driver):
         driver.execute_script("arguments[0].scrollIntoView(true);", accept_button)
         accept_button.click()
         logger.info("Cookies accepted.")
-        time.sleep(2)
+        time.sleep(5)
     except Exception as e:
         logger.warning("No cookies acceptance button found: %s", e)
 
-def load_more_movies(driver, show_more_button_xpath, target_films=5):
+def load_more_movies(driver, show_more_button_xpath, target_films=4000):
     """
     Scrolls down and clicks 'Show More' to load movies until the target count is reached.
     Continuously loads more movies while counting up to the desired amount.
@@ -56,7 +56,7 @@ def load_more_movies(driver, show_more_button_xpath, target_films=5):
             )
             logger.info("Clicking 'Show More' button.")
             show_more_button.click()
-            time.sleep(2)  # Allow new content to load
+            time.sleep(5)  # Allow new content to load
 
             # Get the updated count of movies
             movie_titles = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[2]/ul/li/div/div/div/div[1]/div[2]/div[1]/a/h3')
@@ -118,7 +118,7 @@ def save_to_csv(data, filename='IMDB710.csv'):
         logger.error(f"Error saving data to CSV: {e}")
 
 # Updated XPaths for group and metascore
-def scrape_imdb_data(url, max_movies=5):
+def scrape_imdb_data(url, max_movies=4000):
     """
     Scrape IMDb movie data from the given URL, including Metascore and Short Description.
     Limits the number of movies to scrape.
