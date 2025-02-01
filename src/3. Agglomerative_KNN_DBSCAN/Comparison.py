@@ -7,7 +7,7 @@ import numpy as np
 import seaborn as sns
 
 # File path for input
-input_path = r"/src/3. Agglomerative_KNN_DBSCAN\Normalized_Data.csv"
+input_path = r"Normalized_Data.csv"
 
 # Load normalized data
 data = pd.read_csv(input_path)
@@ -17,7 +17,7 @@ features_for_clustering = ['Rating', 'Year', 'Length (minutes)', 'Rating Amount'
 X = data[features_for_clustering]
 
 # ---- K-Means Clustering ----
-n_clusters_kmeans = 3  # Change the number of clusters as needed
+n_clusters_kmeans = 2  # Change the number of clusters as needed
 kmeans = KMeans(n_clusters=n_clusters_kmeans, random_state=42)
 data['KMeans Cluster'] = kmeans.fit_predict(X)
 
@@ -28,7 +28,7 @@ dbscan = DBSCAN(eps=eps_dbscan, min_samples=min_samples_dbscan)
 data['DBSCAN Cluster'] = dbscan.fit_predict(X)
 
 # ---- Agglomerative Clustering ----
-n_clusters_agglo = 3  # Change the number of clusters as needed
+n_clusters_agglo = 2  # Change the number of clusters as needed
 agglo = AgglomerativeClustering(n_clusters=n_clusters_agglo)
 data['Agglomerative Cluster'] = agglo.fit_predict(X)
 
