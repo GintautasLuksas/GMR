@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-df = pd.read_csv('src/1.Scrape_IMDB_7-10/IMDB710.csv')
+df = pd.read_csv('IMDB710_Complete.csv')
 
 df_cleaned = df.dropna(subset=['Group', 'Metascore', 'Directors', 'Stars'])
 
@@ -19,4 +19,4 @@ df_cleaned = df_cleaned.drop(columns=['Stars'])
 
 print(df_cleaned.head())
 
-df_cleaned.to_csv('src/3. Normalize_Comparison/IMDB710_Cleaned.csv', index=False)
+df_cleaned.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\3. Normalize_Comparison\IMDB710_Cleaned.csv', index=False)

@@ -4,6 +4,12 @@ from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import numpy as np
+import warnings
+import os
+
+os.environ["LOKY_MAX_CPU_COUNT"] = "4"
+warnings.filterwarnings('ignore', category=UserWarning, message=".*Could not find the number of physical cores*")
+
 
 """Load normalized data, perform clustering using KMeans and Agglomerative Clustering,
 compute silhouette scores, visualize the clusters with PCA, and inspect feature importance."""
@@ -17,7 +23,7 @@ X = data[features_for_clustering]
 
 """Perform KMeans clustering with 3 clusters and store the cluster labels."""
 n_clusters_kmeans = 3
-kmeans = KMeans(n_clusters=n_clusters_kmeans, random_state=42)
+kmeans = KMeans(n_clusters=n_clusters_kmeans, n_init=10, random_state=42)
 data['KMeans Cluster'] = kmeans.fit_predict(X)
 
 """Perform Agglomerative Clustering with 3 clusters and store the cluster labels."""
@@ -35,16 +41,9 @@ def compute_silhouette(X, labels, algorithm_name):
         print(f"{algorithm_name} did not form multiple clusters, skipping silhouette score.")
         return None
 
-silhouette_scores = ['K-Means', 'Agglomerative']
-
 """Compute silhouette score for KMeans and Agglomerative clustering algorithms."""
 kmeans_score = compute_silhouette(X, data['KMeans Cluster'], 'K-Means')
-if kmeans_score is not None:
-    silhouette_scores.append(kmeans_score)
-
 agglo_score = compute_silhouette(X, data['Agglomerative Cluster'], 'Agglomerative')
-if agglo_score is not None:
-    silhouette_scores.append(agglo_score)
 
 """Perform PCA for dimensionality reduction to visualize the clusters in 2D."""
 pca = PCA(n_components=2)
@@ -69,9 +68,15 @@ plt.tight_layout()
 plt.show()
 
 """Create a bar plot comparing the silhouette scores of the clustering algorithms."""
-silhouette_scores_final = []
-silhouette_scores_final.append(kmeans_score if kmeans_score is not None else 0)
-silhouette_scores_final.append(agglo_score if agglo_score is not None else 0)
+silhouette_scores = [kmeans_score if kmeans_score is not None else 0, agglo_score if agglo_score is not None else 0]
+algorithms = ['K-Means', 'Agglomerative']
+
+plt.figure(figsize=(8, 6))
+plt.bar(algorithms, silhouette_scores, color=['skyblue', 'salmon'])
+plt.title('Silhouette Score Comparison')
+plt.ylabel('Silhouette Score')
+plt.ylim([0, 1])
+plt.show()
 
 """Save the dataset with the clustering labels into a new CSV file."""
 output_path = r"With_clusters_data.csv"
