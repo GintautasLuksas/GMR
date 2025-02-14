@@ -38,7 +38,6 @@ def load_and_scrape_movies(driver, show_more_button_xpath, films_to_scrape=100, 
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(2)
         try:
-            # Find the 'Show More' button and click it
             show_more_button = WebDriverWait(driver, 4).until(
                 EC.element_to_be_clickable((By.XPATH, show_more_button_xpath))
             )
@@ -46,7 +45,6 @@ def load_and_scrape_movies(driver, show_more_button_xpath, films_to_scrape=100, 
             show_more_button.click()
             time.sleep(1)
 
-            # After clicking, scrape the information of the newly loaded movies
             scrape_additional_info(driver, start_index=films_scraped + 1, end_index=films_scraped + batch_size)
             films_scraped += batch_size
             logger.info(f"Films scraped: {films_scraped}/{films_to_scrape}")
@@ -112,7 +110,6 @@ def scrape_additional_info(driver, filename='additional_data2.csv', start_index=
 
 def main():
     """Initializes the web driver and runs the scraping process."""
-    # Use webdriver-manager to install and get ChromeDriver automatically
     driver_service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=driver_service)
     try:
