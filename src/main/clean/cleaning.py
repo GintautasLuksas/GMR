@@ -30,3 +30,6 @@ def clean_data():
     df_cleaned.to_csv(output_path_2, index=False)
 
     print(f"Cleaned data saved to {output_path_1} and {output_path_2}")
+
+
+clean_data()

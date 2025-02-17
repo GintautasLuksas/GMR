@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import warnings
 import os
-from scipy.cluster.hierarchy import linkage
+from scipy.cluster.hierarchy import linkage, dendrogram
 
 os.environ["LOKY_MAX_CPU_COUNT"] = "4"
 warnings.filterwarnings('ignore', category=UserWarning, message=".*Could not find the number of physical cores*")
@@ -18,18 +18,36 @@ data = pd.read_csv(input_path)
 features_for_clustering = ['Rating', 'Length (mins)', 'Rating Amount', 'Metascore']
 X = data[features_for_clustering]
 
+# KMeans clustering and elbow method
+def compute_elbow(X):
+    """Computes the elbow method to find the optimal number of clusters for KMeans."""
+    inertias = []
+    K_range = range(1, 11)  # Test k values from 1 to 10
+    for k in K_range:
+        kmeans = KMeans(n_clusters=k, n_init=10, random_state=42)
+        kmeans.fit(X)
+        inertias.append(kmeans.inertia_)
+    plt.figure(figsize=(8, 6))
+    plt.plot(K_range, inertias, marker='o', color='b', linestyle='--')
+    plt.title('Elbow Method for KMeans')
+    plt.xlabel('Number of Clusters')
+    plt.ylabel('Inertia')
+    plt.show()
+
+# Plot Elbow method for KMeans
+compute_elbow(X)
+
 n_clusters_kmeans = 3
 kmeans = KMeans(n_clusters=n_clusters_kmeans, n_init=10, random_state=42)
 data['KMeans Cluster'] = kmeans.fit_predict(X)
 
+# Agglomerative Clustering
 n_clusters_agglo = 3
 agglo = AgglomerativeClustering(n_clusters=n_clusters_agglo)
 data['Agglomerative Cluster'] = agglo.fit_predict(X)
 
-
 def compute_silhouette(X, labels, algorithm_name):
-    """Computes the silhouette score for a given clustering algorithm if it forms multiple clusters.
-    """
+    """Computes the silhouette score for a given clustering algorithm if it forms multiple clusters."""
     if len(np.unique(labels)) > 1:
         score = silhouette_score(X, labels)
         print(f"Silhouette Score for {algorithm_name}: {score:.3f}")
@@ -37,7 +55,6 @@ def compute_silhouette(X, labels, algorithm_name):
     else:
         print(f"{algorithm_name} did not form multiple clusters, skipping silhouette score.")
         return None
-
 
 kmeans_score = compute_silhouette(X, data['KMeans Cluster'], 'K-Means')
 agglo_score = compute_silhouette(X, data['Agglomerative Cluster'], 'Agglomerative')
@@ -80,6 +97,14 @@ for i, centroid in enumerate(centroids):
 Z = linkage(X, method='ward')
 print("\nAgglomerative Clustering Linkage Matrix:")
 print(Z)
+
+# Plot Dendrogram for Agglomerative Clustering
+plt.figure(figsize=(10, 7))
+dendrogram(Z)
+plt.title('Dendrogram for Agglomerative Clustering')
+plt.xlabel('Samples')
+plt.ylabel('Distance')
+plt.show()
 
 data.to_csv(output_path, index=False)
 print(f"Clustered data saved to {output_path}")
