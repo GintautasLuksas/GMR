@@ -16,13 +16,13 @@ import os
 os.environ["LOKY_MAX_CPU_COUNT"] = "4"
 
 # Load dataset
-data = pd.read_csv('nn_with_cluster.csv')
+data = pd.read_csv('clustered_data.csv')
 
 print("Initial data preview:")
 print(data.head())
 
 # Separate numeric and categorical columns
-X = data.drop(columns=['KMeans_Cluster', 'Agglomerative_Cluster', 'Title',
+X = data.drop(columns=['KMeans Cluster', 'Agglomerative Cluster', 'Title',
                        'Short Description', 'Directors', 'Star 1', 'Star 2', 'Star 3', 'Genre 2', 'Genre 3',
                        'Metascore'])
 
@@ -69,7 +69,7 @@ print(f"Features shape (after PCA): {X_pca.shape}")
 print(f"Explained variance retained: {sum(pca.explained_variance_ratio_):.2f}")
 
 # Train-test split
-Y_kmeans = data['KMeans_Cluster']
+Y_kmeans = data['KMeans Cluster']
 X_train, X_test, Y_train_kmeans, Y_test_kmeans = train_test_split(X_pca, Y_kmeans, test_size=0.2, random_state=42)
 Y_train_agglomerative, Y_test_agglomerative = Y_train_kmeans.copy(), Y_test_kmeans.copy()
 

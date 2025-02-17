@@ -14,16 +14,16 @@ import os
 
 os.environ["LOKY_MAX_CPU_COUNT"] = "4"
 
-data = pd.read_csv('nn_cluster2.csv')
+data = pd.read_csv('clustered_data2.csv')
 
 print("Initial data preview:")
 print(data.head())
 
-X = data.drop(columns=['KMeans_Cluster', 'Agglomerative_Cluster', 'Title', 'Year',
+X = data.drop(columns=['KMeans Cluster', 'Agglomerative Cluster', 'Title', 'Year',
                        'Short Description', 'Directors', 'Star 1', 'Star 2', 'Star 3', 'Genre 1', 'Genre 2', 'Genre 3',
                        'Group', 'Metascore']).fillna(0)
-Y_kmeans = data['KMeans_Cluster']
-Y_agglomerative = data['Agglomerative_Cluster']
+Y_kmeans = data['KMeans Cluster']
+Y_agglomerative = data['Agglomerative Cluster']
 
 print("Features shape (before PCA):", X.shape)
 

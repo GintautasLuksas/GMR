@@ -1,4 +1,3 @@
-
 import os
 import pandas as pd
 import numpy as np
@@ -15,6 +14,7 @@ import string
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.preprocessing import LabelEncoder
+from scipy.cluster.hierarchy import dendrogram, linkage
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -130,6 +130,18 @@ print(f"Silhouette Score (K-Means): {sil_score_kmeans:.4f}")
 sil_score_agg = silhouette_score(encoded_features, agg_clusters)
 print(f"Silhouette Score (Agglomerative Clustering): {sil_score_agg:.4f}")
 
+# Create Dendrogram for Agglomerative Clustering
+# Perform hierarchical clustering and create linkage matrix
+linked = linkage(encoded_features, 'ward')
+
+# Plot Dendrogram
+plt.figure(figsize=(10, 7))
+dendrogram(linked)
+plt.title('Dendrogram for Agglomerative Clustering')
+plt.xlabel('Data Points')
+plt.ylabel('Distance')
+plt.show()
+
 # Convert embeddings to DataFrame for saving
 title_embeddings_df = pd.DataFrame(title_embeddings)
 description_embeddings_df = pd.DataFrame(description_embeddings)
@@ -147,7 +159,12 @@ nn_cluster_labels = data[['Title', 'Year', 'Rating', 'Length (mins)', 'Rating Am
 nn_cluster_labels = pd.concat([nn_cluster_labels, title_embeddings_df, description_embeddings_df,
                                directors_embeddings_df, stars_embeddings_df, genre_embeddings_df, group_embeddings_df], axis=1)
 
-nn_cluster_labels.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\main\random_forest\nn_cluster.csv', index=False)
-nn_cluster_labels.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\main\compare\nn_cluster.csv', index=False)
 
+nn_cluster_labels.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\main\compare_nn\nn_cluster.csv', index=False)
 
+nn_with_cluster = data[['Title', 'Year', 'Rating', 'Length (mins)', 'Rating Amount',
+                        'Group', 'Metascore', 'Short Description', 'Directors',
+                        'Star 1', 'Star 2', 'Star 3', 'Genre 1', 'Genre 2', 'Genre 3',
+                        'KMeans_Cluster', 'Agglomerative_Cluster']]
+
+nn_with_cluster.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\main\random_forest\nn_with_cluster.csv', index=False)
