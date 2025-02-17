@@ -11,8 +11,8 @@ from scipy.cluster.hierarchy import linkage
 os.environ["LOKY_MAX_CPU_COUNT"] = "4"
 warnings.filterwarnings('ignore', category=UserWarning, message=".*Could not find the number of physical cores*")
 
-input_path = r"/src/system_test_data\normalize_comparison\normalized_data2.csv"
-output_path = r"/src/system_test_data\normalize_comparison\clustered_data2.csv"
+input_path = r"C:\Users\user\PycharmProjects\GMR\src\system_test_data\normalize_comparison\normalized_data2.csv"
+output_path = r"C:\Users\user\PycharmProjects\GMR\src\system_test_data\normalize_comparison\clustered_data2.csv"
 
 data = pd.read_csv(input_path)
 

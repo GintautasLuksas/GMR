@@ -39,7 +39,7 @@ def accept_cookies(driver):
         logger.warning("No cookies acceptance button found: %s", e)
 
 
-def load_more_movies_and_scrape(driver, show_more_button_xpath, target_films=100, batch_size=50):
+def load_more_movies_and_scrape(driver, show_more_button_xpath, target_films=50, batch_size=50):
     """
     Scrolls down and clicks 'Show More' to load movies until the target count is reached,
     and immediately scrapes the newly loaded movies after each click.
@@ -168,7 +168,7 @@ def save_to_csv(data):
 
     headers = ['Index', 'Title', 'Year', 'Rating', 'Length (mins)', 'Rating Amount', 'Metascore', 'Group', 'Short Description']
 
-    with open('imdb_movies.csv2', mode='a', newline='', encoding='utf-8') as file:
+    with open('imdb_movies2.csv', mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
 
         if not file_exists:
@@ -218,7 +218,7 @@ def remove_number_prefix(title):
     return re.sub(r'^\d+\.\s*', '', title)
 
 
-def scrape_imdb_data(url, max_movies=100):
+def scrape_imdb_data(url, max_movies=50):
     """
     Scrape IMDb movie data from the given URL, including Metascore and Short Description.
     Limits the number of movies to scrape.
@@ -246,5 +246,5 @@ def scrape_imdb_data(url, max_movies=100):
 
 
 # Call the scrape_imdb_data function with the IMDb URL
-url = 'https://www.imdb.com/search/title/?release_date=2022-05-30,2025-02-13'
+url = 'https://www.imdb.com/search/title/?release_date=2015-01-17,2024-12-31&user_rating=5,6.9&num_votes=10000,'
 scrape_imdb_data(url)

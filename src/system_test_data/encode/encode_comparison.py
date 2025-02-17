@@ -133,5 +133,5 @@ nn_cluster_labels = data[['Title', 'Year', 'Rating', 'Length (mins)', 'Rating Am
 nn_cluster_labels = pd.concat([nn_cluster_labels, title_embeddings_df, description_embeddings_df,
                                directors_embeddings_df, stars_embeddings_df, genre_embeddings_df, group_embeddings_df], axis=1)
 
-nn_cluster_labels.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\test_data\random_forest\nn_cluster2.csv', index=False)
+nn_cluster_labels.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\system_test_data\random_forest\nn_cluster2.csv', index=False)
 nn_cluster_labels.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\main\compare\nn_cluster2.csv', index=False)

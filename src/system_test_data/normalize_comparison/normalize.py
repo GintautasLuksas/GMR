@@ -108,10 +108,10 @@ def process_data(input_path, output_paths):
     save_data(data_cleaned, output_paths)
 
 
-input_path = r"/src/system_test_data\normalize_comparison\cleaned_data2.csv"
+input_path = r"C:\Users\user\PycharmProjects\GMR\src\system_test_data\normalize_comparison\cleaned_data2.csv"
 output_paths = [
-    r"C:\Users\user\PycharmProjects\GMR\src\test_data\normalize_comparison\normalized_data2.csv",
-    r"C:\Users\user\PycharmProjects\GMR\src\test_data\encode\normalized_data2.csv"
+    r"C:\Users\user\PycharmProjects\GMR\src\system_test_data\normalize_comparison\normalized_data2.csv",
+    r"C:\Users\user\PycharmProjects\GMR\src\system_test_data\encode\normalized_data2.csv"
 ]
 
 process_data(input_path, output_paths)

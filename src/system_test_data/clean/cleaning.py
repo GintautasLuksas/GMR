@@ -29,8 +29,8 @@ def save_cleaned_data(df, output_path_1, output_path_2):
 
 
 file_path = 'complete_data2.csv'
-output_path_1 = r'/src/system_test_data\normalize_comparison\cleaned_data2.csv'
-output_path_2 = r'/src/system_test_data\encode\cleaned_data2.csv'
+output_path_1 = r'C:\Users\user\PycharmProjects\GMR\src\system_test_data\normalize_comparison\cleaned_data2.csv'
+output_path_2 = r'C:\Users\user\PycharmProjects\GMR\src\system_test_data\encode\cleaned_data2.csv'
 
 df_cleaned = load_and_clean_data(file_path)
 print(df_cleaned.head())

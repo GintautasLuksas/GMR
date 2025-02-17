@@ -9,7 +9,7 @@ def merge_csv_files():
 
     imdb_complete = imdb_complete.rename(columns={'Metascore': 'Group', 'Group': 'Metascore'})
 
-    imdb_complete.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\test_data\clean\complete_data2.csv', index=False)
+    imdb_complete.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\system_test_data\clean\complete_data2.csv', index=False)
     print("Data successfully merged, and saved as complete_data2.csv")
 
 merge_csv_files()

@@ -31,7 +31,7 @@ def accept_cookies(driver):
     except Exception as e:
         logger.error("No cookies acceptance button found: %s", e)
 
-def load_and_scrape_movies(driver, show_more_button_xpath, films_to_scrape=100, batch_size=50):
+def load_and_scrape_movies(driver, show_more_button_xpath, films_to_scrape=50, batch_size=50):
     """Loads more movies by clicking the 'Show More' button until the target number of films is reached and scrapes them."""
     films_scraped = 0
     while films_scraped < films_to_scrape:
@@ -113,13 +113,13 @@ def main():
     driver_service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=driver_service)
     try:
-        url = 'https://www.imdb.com/search/title/?release_date=2022-05-30,2025-02-13'
+        url = 'https://www.imdb.com/search/title/?release_date=2015-01-17,2024-12-31&user_rating=5,6.9&num_votes=10000,'
         driver.get(url)
         time.sleep(2)
         zoom_out(driver)
         accept_cookies(driver)
         show_more_button_xpath = '//*[@id="__next"]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[2]/div[2]/div/span/button'
-        load_and_scrape_movies(driver, show_more_button_xpath, films_to_scrape=100, batch_size=50)
+        load_and_scrape_movies(driver, show_more_button_xpath, films_to_scrape=50, batch_size=50)
         driver.execute_script("window.scrollTo(0, 0);")
         time.sleep(2)
     finally:
