@@ -6,13 +6,12 @@ from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 random_clusters_df = pd.read_csv('nn_cluster2.csv')
 nn_clusters_df = pd.read_csv('nn_cluster.csv')
 
-# Clean and format genre columns (remove extra spaces, lowercase, and handle NaNs)
 def clean_genre_column(genre_column):
     """
     Clean and standardize genre columns by removing extra spaces, converting to lowercase, and handling NaNs.
     """
     if isinstance(genre_column, str):
-        return genre_column.strip().lower()  # Remove spaces and convert to lowercase
+        return genre_column.strip().lower()
     return ""
 
 # Apply genre cleaning to both random and nn clusters
@@ -21,9 +20,14 @@ nn_clusters_df["Genre 1"] = nn_clusters_df["Genre 1"].apply(clean_genre_column)
 nn_clusters_df["Genre 2"] = nn_clusters_df["Genre 2"].apply(clean_genre_column)
 nn_clusters_df["Genre 3"] = nn_clusters_df["Genre 3"].apply(clean_genre_column)
 
-# Convert relevant columns to numeric and fill missing values with zeros
-numeric_random_df = random_clusters_df.drop(columns=["Title", "Genre 1"]).apply(pd.to_numeric, errors="coerce").fillna(0)
-numeric_nn_df = nn_clusters_df.drop(columns=["Title", "Genre 1"]).apply(pd.to_numeric, errors="coerce").fillna(0)
+def prepare_numeric_data(df):
+    """
+    Prepare numeric data by dropping non-numeric columns and filling missing values with zeros.
+    """
+    return df.drop(columns=["Title", "Genre 1"]).apply(pd.to_numeric, errors="coerce").fillna(0)
+
+numeric_random_df = prepare_numeric_data(random_clusters_df)
+numeric_nn_df = prepare_numeric_data(nn_clusters_df)
 
 # Create embeddings (numeric arrays) for the random and nn clusters
 random_cluster_embeddings = numeric_random_df.values
@@ -37,52 +41,64 @@ distance_matrix = euclidean_distances(random_cluster_embeddings, nn_cluster_embe
 cosine_weight = 0.5
 euclidean_weight = 0.5
 
-# Initialize a list to store the comparison results
+# Initialize a list to store the comparison results and a set for recommended titles
 comparison_results_combined = []
+recommended_titles = set()
 
-# Loop over each movie in the random clusters
+# Get the number of watched movies
+watched_movie_count = len(random_clusters_df)
+
+# Loop over each movie in the random clusters (watched movies)
 for random_index in range(len(random_clusters_df)):
     random_movie = random_clusters_df.iloc[random_index]
     random_title = random_movie["Title"]
-    random_genre_1 = random_movie["Genre 1"]
+    random_genres = {random_movie["Genre 1"], random_movie.get("Genre 2", ""), random_movie.get("Genre 3", "")}
 
-    # Find the most similar movie based on cosine similarity
-    most_similar_index_cosine = np.argmax(cosine_sim[random_index])
-    most_similar_movie_cosine = nn_clusters_df.iloc[most_similar_index_cosine]
+    # Find the most similar movies based on cosine similarity
+    most_similar_indices_cosine = np.argsort(cosine_sim[random_index])[::-1]
 
-    # Extract the genres from the recommended movie and clean them
-    recommended_genres = {
-        most_similar_movie_cosine["Genre 1"],
-        most_similar_movie_cosine["Genre 2"],
-        most_similar_movie_cosine["Genre 3"]
-    }
+    # Track if a recommendation has been made for this random movie
+    recommendation_made = False
 
-    # Relax the genre match: Check if any genre from random movie overlaps with recommended genres
-    random_movie_genres = {random_genre_1}
-    genre_match = len(random_movie_genres.intersection(recommended_genres)) > 0
+    # Check the top recommendations for each random movie
+    for idx in most_similar_indices_cosine:
+        recommended_movie_title = nn_clusters_df.iloc[idx]["Title"]
 
-    # If there's a genre match, compute a combined score based on cosine similarity and Euclidean distance
-    if genre_match:
-        # Compute a combined score based on cosine similarity and Euclidean distance
-        combined_score = (cosine_weight * cosine_sim[random_index, most_similar_index_cosine] +
-                          euclidean_weight * (1 / (1 + distance_matrix[random_index, most_similar_index_cosine])))
+        if recommended_movie_title in recommended_titles:
+            continue
 
-        # Store the comparison results for this movie
+        recommended_genres = {
+            nn_clusters_df.iloc[idx]["Genre 1"],
+            nn_clusters_df.iloc[idx].get("Genre 2", ""),
+            nn_clusters_df.iloc[idx].get("Genre 3", "")
+        }
+
+        genre_match = len(random_genres.intersection(recommended_genres)) > 0 or not random_genres
+
+        combined_score = (cosine_weight * cosine_sim[random_index, idx] +
+                          euclidean_weight * (1 / (1 + distance_matrix[random_index, idx])))
+
         comparison_entry = {
             "Random Movie Title": random_title,
-            "Recommended NN Movie Title": most_similar_movie_cosine["Title"],
+            "Recommended NN Movie Title": recommended_movie_title,
             "Combined Score": combined_score,
             "Genre Match": genre_match
         }
 
-        # Add movie details to the comparison entry
         for col in ["Title", "Year", "Rating", "Length (mins)", "Rating Amount", "Group",
                     "Metascore", "Short Description", "Directors", "Star 1", "Star 2", "Star 3",
                     "Genre 1", "Genre 2", "Genre 3", "KMeans_Cluster", "Agglomerative_Cluster"]:
             comparison_entry[f"Random_{col}"] = random_movie[col]
-            comparison_entry[f"NN_{col}"] = most_similar_movie_cosine[col]
+            comparison_entry[f"NN_{col}"] = nn_clusters_df.iloc[idx][col]
 
         comparison_results_combined.append(comparison_entry)
+        recommended_titles.add(recommended_movie_title)
+
+        recommendation_made = True  # Mark that a recommendation has been made
+        break  # Exit the loop after making a recommendation
+
+    if len(recommended_titles) >= watched_movie_count:
+        break  # Stop if we have enough recommendations
 
 # Convert the comparison results to a DataFrame
 comparison_df_combined = pd.DataFrame(comparison_results_combined)
@@ -90,6 +106,9 @@ comparison_df_combined = pd.DataFrame(comparison_results_combined)
 # Sort the DataFrame by the combined score in descending order
 comparison_df_combined = comparison_df_combined.sort_values(by="Combined Score", ascending=False)
 
+# Limit the total number of recommendations to the number of watched movies
+comparison_df_combined = comparison_df_combined.head(watched_movie_count)
+
 # Print the final results
 print("Combined Cosine and Euclidean Distance Recommendation (with Genre Match):")
-print(comparison_df_combined.to_string())
+print(comparison_df_combined.to_string(index=False))

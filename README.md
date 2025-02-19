@@ -1,94 +1,183 @@
-# Gintautas Movie Recommendation System
+# Gintautas Movie Recommendation (VCS GMR)
 
-## Overview
-This project is a movie recommendation system that uses clustering and deep learning techniques to suggest movies based on various parameters. The system primarily considers **user ratings (Rating)** and **critic scores (Metascore)** as the most significant factors when comparing movies.
+## Description
+Gintautas Movie Recommendation (VCS GMR) is a project that scrapes, cleans, and clusters movie data from IMDB to build a recommendation system. The project applies machine learning techniques such as clustering and natural language processing (NLP) to recommend movies based on various features like rating, length, and user reviews.
 
-## Workflow
-The project consists of several scripts, each responsible for different stages of data collection, cleaning, clustering, and evaluation:
+## Installation
+1. **Clone the Repository**
+   ```bash
+   git clone <repository_url>
+   cd VCS_GMR
+   ```
 
-### 1. **Data Scraping**
-- **`Main_scrape.py`**: Scrapes essential movie details from IMDb, including Title, Metascore, Group, Year, Length, Rating, Rate Amount, and Short Description. It filters movies with a **minimum rating of 7.0** and at least **10,000 user ratings**.
-- **`Additional_scrape.py`**: Extracts additional data such as Directors, Stars, and Genres.
-
-### 2. **Data Processing**
-- **`Merge_scraped_data.py`**: Merges the collected data into a structured dataset.
-- **`cleaning.py`**: Cleans missing data, separates Stars and Genre into different columns, and removes numbering from movie titles.
-- **`normalize.py`**: Normalizes numerical features using **MinMaxScaler**, including Length (mins), Rating Amount, Metascore, and Rating.
-
-### 3. **Clustering & Feature Importance Analysis**
-- **`comparison.py`**: Performs **KMeans** and **Agglomerative clustering** and evaluates models using **Silhouette Score**.
-  - **KMeans Score**: **0.313**
-  - **Agglomerative Score**: **0.281**
-
-  **Feature Importance in KMeans Clusters:**
-  - **Cluster 0**: High **Rating (0.476)**, High **Metascore (0.755)**
-  - **Cluster 1**: Moderate **Metascore (0.784)**, Low **Rating Amount**
-  - **Cluster 2**: Lower **Metascore (0.512)**, Balanced Rating
-
-### 4. **Deep Learning & Encoding**
-- **`Encode_comparison.py`**: Utilizes **SentenceTransformer** to encode textual data and runs it through an **autoencoder neural network**.
-- Applies **KMeans** and **Agglomerative clustering** on embedded data.
-- **Silhouette Scores for Encoded Data:**
-  - **KMeans**: **0.4308**
-  - **Agglomerative**: **0.3613**
-
-### 5. **Model Evaluation**
-- **`Random_forest.py`**: Uses **Random Forest** on encoded data to validate cluster assignments.
-  - **KMeans Clustering Results:**
-    - Accuracy: **53.37%**
-    - Macro AUC: **0.71**
-  - **Agglomerative Clustering Results:**
-    - Accuracy: **53.37%**
-    - Macro AUC: **0.71**
-
-### 6. **System Testing with Lower Rated Movies**
-- **`system_test_data`**: Contains a test dataset with **50 movies** (Rating **5-7**) from **2023-2025** to evaluate the model.
-
-### 7. **Similarity Analysis**
-- **`Cosing_euclidean.py`**: Measures model effectiveness by comparing movies using a combination of **Cosine and Euclidean** similarity metrics.
-- Recommendations are cluster-bound, meaning a movie is first assigned a cluster before comparing additional metrics.
-
-## Installation & Usage
-1. Install the required dependencies:
+2. **Install Required Dependencies**
    ```bash
    pip install -r requirements.txt
    ```
-2. Run the scraping scripts to collect data:
+
+3. **Set Up Environment Variables**
+   - Create a `.env` file in the project root directory.
+   - Add the following:
+     ```env
+     DB_HOST=<your_database_host>
+     DB_USER=<your_database_user>
+     DB_PASSWORD=<your_database_password>
+     DB_NAME=<your_database_name>
+     ```
+
+4. **Run the Scraping Script**
    ```bash
-   python Main_scrape.py
-   python Additional_scrape.py
+   python main_scrape.py
    ```
-3. Merge and clean the data:
+
+5. **Merge and Clean Data**
    ```bash
-   python Merge_scraped_data.py
+   python merge.py
    python cleaning.py
    ```
-4. Normalize and encode data:
+
+6. **Normalize Data**
    ```bash
    python normalize.py
-   python Encode_comparison.py
    ```
-5. Run clustering analysis:
+
+7. **Run Clustering and Recommendation System**
    ```bash
    python comparison.py
-   ```
-6. Evaluate the model:
-   ```bash
-   python Random_forest.py
-   ```
-7. Test recommendation system:
-   ```bash
-   python Cosing_euclidean.py
+   python encode_comparison.py
    ```
 
-## Future Improvements
-- Improve clustering accuracy by using additional feature engineering techniques.
-- Experiment with different deep learning models for better encoding.
-- Implement a user-friendly web interface for movie recommendations.
+## Project Structure
+```
+VCS_GMR/
+│── src/
+│   ├── main/
+│   │   ├── clean/             # Data cleaning scripts
+│   │   │   ├── cleaning.py
+│   │   │   ├── complete_data.csv
+│   │   ├── compare/           # Clustering and recommendation analysis
+│   │   │   ├── clustered_data2.csv
+│   │   │   ├── cosing_euclidean.py
+│   │   │   ├── recommendation_results_combined.csv
+│   │   ├── compare_nn/        # Neural network comparison scripts
+│   │   │   ├── nn_cluster.csv
+│   │   │   ├── nn_cosing_euclidean.py
+│   │   ├── encode/            # Encoding and processing numerical columns
+│   │   │   ├── cleaned_data.csv
+│   │   │   ├── encode_comparison.py
+│   │   │   ├── normalized_data.csv
+│   │   ├── normalize_comparison/ # Normalization and comparison analysis
+│   │   │   ├── cleaned_data.csv
+│   │   │   ├── comparison.py
+│   │   │   ├── normalize.py
+│   │   ├── random_forest/     # Random forest model implementations
+│   │   │   ├── clustered_data.csv
+│   │   │   ├── nn_random_forest.py
+│   │   │   ├── random_forest.py
+│   │   ├── scrape/            # Web scraping and data collection
+│   │   │   ├── additional_scrape.py
+│   │   │   ├── imdb_movies.csv
+│   │   │   ├── main_scrape.py
+│   │   │   ├── merge.py
+│   │   ├── system_test_data/  # Testing dataset handling
+│   │   │   ├── cleaning.py
+│   │   │   ├── complete_data2.csv
+│── .gitignore
+│── README.md
+│── requirements.txt
+```
 
-## Author
-Gintautas
+## Class Diagram
+```
++----------------------+
+| MovieScraper        |
++----------------------+
+| - scrape_movies()   |
+| - save_to_csv()     |
++----------------------+
+       |
+       v
++----------------------+
+| DataCleaner         |
++----------------------+
+| - clean_data()      |
+| - split_values()    |
++----------------------+
+       |
+       v
++----------------------+
+| Normalizer          |
++----------------------+
+| - normalize_data()  |
++----------------------+
+       |
+       v
++----------------------+
+| ClusterComparison   |
++----------------------+
+| - kmeans_clustering() |
+| - agglomerative_clustering() |
++----------------------+
+       |
+       v
++----------------------+
+| Recommendation      |
++----------------------+
+| - recommend_movies() |
++----------------------+
+```
+**Description:**
+- `MovieScraper`: Handles movie data extraction from IMDB.
+- `DataCleaner`: Cleans and preprocesses data.
+- `Normalizer`: Normalizes movie features using MinMaxScaler.
+- `ClusterComparison`: Applies K-Means and Agglomerative clustering.
+- `Recommendation`: Generates movie recommendations.
+
+## Database Diagram
+```
++--------------------+
+| Movies            |
++--------------------+
+| id (PK)           |
+| title             |
+| year              |
+| rating            |
+| length (mins)     |
+| rating_amount     |
+| metascore         |
+| group             |
+| description       |
++--------------------+
+       |
+       v
++--------------------+
+| Additional Data   |
++--------------------+
+| id (PK, FK)       |
+| directors         |
+| stars            |
+| genres           |
++--------------------+
+```
+**Description:**
+- `Movies`: Stores main movie information.
+- `Additional Data`: Stores director, star, and genre details linked to movies.
+
+## Project Status
+### **Completed Features:**
+✔ Movie data scraping from IMDB
+✔ Data cleaning and preprocessing
+✔ Feature normalization
+✔ Clustering using K-Means and Agglomerative Clustering
+✔ Recommendation system based on clustering
+✔ Evaluation with Silhouette Score and Davies-Bouldin Index
+
+### **Future Improvements:**
+- Improve clustering accuracy by tuning hyperparameters
+- Enhance recommendation logic with deep learning models
+- Implement a web-based UI for user interaction
+- Add real-time movie data updates
 
 ---
-This project is designed to provide intelligent movie recommendations based on IMDb data, leveraging clustering techniques and deep learning embeddings for improved results.
+**Developed by Gintautas | VCS GMR**
 

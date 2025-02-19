@@ -246,5 +246,5 @@ def scrape_imdb_data(url, max_movies=50):
 
 
 # Call the scrape_imdb_data function with the IMDb URL
-url = 'https://www.imdb.com/search/title/?release_date=2015-01-17,2024-12-31&user_rating=5,6.9&num_votes=10000,'
+url = 'https://www.imdb.com/search/title/?release_date=2015-01-17,2024-12-31&num_votes=10000,'
 scrape_imdb_data(url)
