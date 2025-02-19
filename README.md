@@ -1,12 +1,12 @@
 # Gintautas Movie Recommendation (VCS GMR)
 
 ## Description
-Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clusters movie data from IMDB to build and compare a recommendation system. The project applies machine learning techniques such as clustering and natural language processing (NLP) to recommend movies based on various features like rating, length, and user reviews.
+Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clusters movie data from IMDB to build and compare a recommendation system. The project applies machine learning techniques such as clustering and natural language processing (NLP) to recommend movies based on various features like rating, length, metascore, and user reviews.
 
 ## Installation
 1. **Clone the Repository**
    ```bash
-   git clone <https://github.com/GintautasLuksas/GMR.git>
+   git clone https://github.com/GintautasLuksas/GMR.git
    cd VCS_GMR
    ```
 
@@ -18,7 +18,7 @@ Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clus
 3. **Run the Scraping Script**
    ```bash
    python main_scrape.py
-   python additional.scrape.py
+   python additional_scrape.py
    ```
 
 4. **Merge and Clean Data**
@@ -32,21 +32,23 @@ Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clus
    python normalize.py
    ```
 
-6. **Run regular and NN Clustering**
+6. **Run Regular and NN Clustering**
    ```bash
    python comparison.py
    python encode_comparison.py
    ```
-7. **Run regular and NN Clustered data with Random Forest**
+
+7. **Run Regular and NN Clustered Data with Random Forest**
    ```bash
    python random_forest.py
    python nn_random_forest.py
-   
-8**Run regular and NN Clustering**
+   ```
+
+8. **Run Regular and NN Clustering**
    ```bash
    python cosing_euclidean.py
    python nn_cosing_euclidean.py
-
+   ```
 
 ## Project Structure
 ```
@@ -75,7 +77,7 @@ VCS_GMR/
 │   │   │   ├── clustered_data.csv
 │   │   │   ├── nn_random_forest.py
 │   │   │   ├── random_forest.py
-│   │   ├   ├──scrape/            # Web scraping and data collection
+│   │   ├── scrape/            # Web scraping and data collection
 │   │   │   ├── additional_scrape.py
 │   │   │   ├── imdb_movies.csv
 │   │   │   ├── main_scrape.py
@@ -99,7 +101,7 @@ VCS_GMR/
 │   │   │   ├── nn_random_forest.py
 │   │   │   ├── nn_random_forest2.csv
 │   │   │   ├── random_forest.py
-│   │   ├   ├──scrape2/           
+│   │   ├── scrape2/           
 │   │   │   ├── additional_scrape2.csv
 │   │   │   ├── additional_scrape.py
 │   │   │   ├── imdb_movies.csv
@@ -109,11 +111,6 @@ VCS_GMR/
 │── README.md
 │── requirements.txt
 ```
-
-
-**Description:**
-- `Movies`: Stores main movie information.
-- `Additional Data`: Stores director, star, and genre details linked to movies.
 
 ## Project Status
 ### **Completed Features:**
@@ -125,10 +122,10 @@ VCS_GMR/
 ✔ Evaluation with Silhouette Score and Davies-Bouldin Index
 
 ### **Future Improvements:**
-- Wider datset with more entries and more relevent columns such as reviews by both viewers and critics.
-- Enhance recommendation logic with deep learning models
-- Improve clustering accuracy by tuning hyperparameters
-- Implement a web-based UI for user interaction
+- Wider dataset with more entries and more relevant columns such as reviews by both viewers and critics.
+- Enhance recommendation logic with deep learning models.
+- Improve clustering accuracy by tuning hyperparameters.
+- Implement a web-based UI for user interaction.
 
 ---
 **Developed by Gintautas | GMR**
