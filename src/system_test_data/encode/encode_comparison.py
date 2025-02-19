@@ -134,7 +134,7 @@ nn_cluster_labels = pd.concat([nn_cluster_labels, title_embeddings_df, descripti
                                directors_embeddings_df, stars_embeddings_df, genre_embeddings_df, group_embeddings_df], axis=1)
 
 
-nn_cluster_labels.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\main\compare_nn\nn_cluster2.csv', index=False)
+nn_cluster_labels.to_csv(r'C:\Users\user\PycharmProjects\GMR\src\main\recommendation_nn\nn_cluster2.csv', index=False)
 
 nn_with_cluster = data[['Title', 'Year', 'Rating', 'Length (mins)', 'Rating Amount',
                         'Group', 'Metascore', 'Short Description', 'Directors',
