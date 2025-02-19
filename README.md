@@ -1,12 +1,12 @@
 # Gintautas Movie Recommendation (VCS GMR)
 
 ## Description
-Gintautas Movie Recommendation (VCS GMR) is a project that scrapes, cleans, and clusters movie data from IMDB to build a recommendation system. The project applies machine learning techniques such as clustering and natural language processing (NLP) to recommend movies based on various features like rating, length, and user reviews.
+Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clusters movie data from IMDB to build and compare a recommendation system. The project applies machine learning techniques such as clustering and natural language processing (NLP) to recommend movies based on various features like rating, length, and user reviews.
 
 ## Installation
 1. **Clone the Repository**
    ```bash
-   git clone <repository_url>
+   git clone <https://github.com/GintautasLuksas/GMR.git>
    cd VCS_GMR
    ```
 
@@ -15,37 +15,38 @@ Gintautas Movie Recommendation (VCS GMR) is a project that scrapes, cleans, and 
    pip install -r requirements.txt
    ```
 
-3. **Set Up Environment Variables**
-   - Create a `.env` file in the project root directory.
-   - Add the following:
-     ```env
-     DB_HOST=<your_database_host>
-     DB_USER=<your_database_user>
-     DB_PASSWORD=<your_database_password>
-     DB_NAME=<your_database_name>
-     ```
-
-4. **Run the Scraping Script**
+3. **Run the Scraping Script**
    ```bash
    python main_scrape.py
+   python additional.scrape.py
    ```
 
-5. **Merge and Clean Data**
+4. **Merge and Clean Data**
    ```bash
    python merge.py
    python cleaning.py
    ```
 
-6. **Normalize Data**
+5. **Normalize Data**
    ```bash
    python normalize.py
    ```
 
-7. **Run Clustering and Recommendation System**
+6. **Run regular and NN Clustering**
    ```bash
    python comparison.py
    python encode_comparison.py
    ```
+7. **Run regular and NN Clustered data with Random Forest**
+   ```bash
+   python random_forest.py
+   python nn_random_forest.py
+   
+8**Run regular and NN Clustering**
+   ```bash
+   python cosing_euclidean.py
+   python nn_cosing_euclidean.py
+
 
 ## Project Structure
 ```
@@ -74,7 +75,7 @@ VCS_GMR/
 │   │   │   ├── clustered_data.csv
 │   │   │   ├── nn_random_forest.py
 │   │   │   ├── random_forest.py
-│   │   ├── scrape/            # Web scraping and data collection
+│   │   ├   ├──scrape/            # Web scraping and data collection
 │   │   │   ├── additional_scrape.py
 │   │   │   ├── imdb_movies.csv
 │   │   │   ├── main_scrape.py
@@ -82,83 +83,34 @@ VCS_GMR/
 │   │   ├── system_test_data/  # Testing dataset handling
 │   │   │   ├── cleaning.py
 │   │   │   ├── complete_data2.csv
+│   │   ├── encode/            
+│   │   │   ├── cleaned_data2.csv
+│   │   │   ├── encode_comparison.py
+│   │   │   ├── normalized_data2.csv
+│   │   │   ├── numeric2.csv
+│   │   ├── normalize_comparison/ 
+│   │   │   ├── cleaned_data.csv
+│   │   │   ├── clustered_data2.csv
+│   │   │   ├── comparison.py
+│   │   │   ├── normalize.py
+│   │   │   ├── normalize_data2.csv
+│   │   ├── random_forest/     
+│   │   │   ├── clustered_data.csv
+│   │   │   ├── nn_random_forest.py
+│   │   │   ├── nn_random_forest2.csv
+│   │   │   ├── random_forest.py
+│   │   ├   ├──scrape2/           
+│   │   │   ├── additional_scrape2.csv
+│   │   │   ├── additional_scrape.py
+│   │   │   ├── imdb_movies.csv
+│   │   │   ├── main_scrape.py
+│   │   │   ├── merge.py
 │── .gitignore
 │── README.md
 │── requirements.txt
 ```
 
-## Class Diagram
-```
-+----------------------+
-| MovieScraper        |
-+----------------------+
-| - scrape_movies()   |
-| - save_to_csv()     |
-+----------------------+
-       |
-       v
-+----------------------+
-| DataCleaner         |
-+----------------------+
-| - clean_data()      |
-| - split_values()    |
-+----------------------+
-       |
-       v
-+----------------------+
-| Normalizer          |
-+----------------------+
-| - normalize_data()  |
-+----------------------+
-       |
-       v
-+----------------------+
-| ClusterComparison   |
-+----------------------+
-| - kmeans_clustering() |
-| - agglomerative_clustering() |
-+----------------------+
-       |
-       v
-+----------------------+
-| Recommendation      |
-+----------------------+
-| - recommend_movies() |
-+----------------------+
-```
-**Description:**
-- `MovieScraper`: Handles movie data extraction from IMDB.
-- `DataCleaner`: Cleans and preprocesses data.
-- `Normalizer`: Normalizes movie features using MinMaxScaler.
-- `ClusterComparison`: Applies K-Means and Agglomerative clustering.
-- `Recommendation`: Generates movie recommendations.
 
-## Database Diagram
-```
-+--------------------+
-| Movies            |
-+--------------------+
-| id (PK)           |
-| title             |
-| year              |
-| rating            |
-| length (mins)     |
-| rating_amount     |
-| metascore         |
-| group             |
-| description       |
-+--------------------+
-       |
-       v
-+--------------------+
-| Additional Data   |
-+--------------------+
-| id (PK, FK)       |
-| directors         |
-| stars            |
-| genres           |
-+--------------------+
-```
 **Description:**
 - `Movies`: Stores main movie information.
 - `Additional Data`: Stores director, star, and genre details linked to movies.
@@ -173,11 +125,11 @@ VCS_GMR/
 ✔ Evaluation with Silhouette Score and Davies-Bouldin Index
 
 ### **Future Improvements:**
-- Improve clustering accuracy by tuning hyperparameters
+- Wider datset with more entries and more relevent columns such as reviews by both viewers and critics.
 - Enhance recommendation logic with deep learning models
+- Improve clustering accuracy by tuning hyperparameters
 - Implement a web-based UI for user interaction
-- Add real-time movie data updates
 
 ---
-**Developed by Gintautas | VCS GMR**
+**Developed by Gintautas | GMR**
 
