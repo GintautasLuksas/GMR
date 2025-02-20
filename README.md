@@ -172,6 +172,9 @@ VCS_GMR/
 **Best Performing Clustering:** **Regular Agglomerative**
 
 ### Recommendation System
+The model for user input immitation currently uses scraped data for movies released between 2014 and 2024, with user ratings of 10,000 or more, to ensure a more diverse selection of films.
+
+
 ## Regular Recommendation
 What uses created model for simmilar movie selection?
 - Uses Agglomerative clusters as the primary similarity metric.
