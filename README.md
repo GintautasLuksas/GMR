@@ -172,7 +172,8 @@ VCS_GMR/
 **Best Performing Clustering:** **Regular Agglomerative**
 
 ### Recommendation System
-The model for user input immitation currently uses scraped data for movies released between 2014 and 2024, with user ratings of 10,000 or more, to ensure a more diverse selection of films.
+The model for user input immitation currently uses scraped data for movies released between 2014 and 2024 from IMDB page, with user ratings amount of 10,000 or more, to ensure a more diverse selection of films.
+Data proccessed just like original dataset.
 
 
 ## Regular Recommendation
