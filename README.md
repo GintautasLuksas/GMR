@@ -178,7 +178,7 @@ What uses created model for simmilar movie selection?
 - Uses Agglomerative clusters as the primary similarity metric.
 - Filters based on rating, Metascore, Genre, and numeric features.
 
-### Neural Network Recommendation
+## Neural Network Recommendation
 - Uses embedded data for recommendations.
 
 ## Evaluation Criteria for this model Movie Recommendations
@@ -191,20 +191,20 @@ What uses created model for simmilar movie selection?
 
 
 **Regular**
-Evaluation
+
 ![Recommended Agglomerative Clustering](src/project_diagrams/Recommend_Agglomerative.jpg)
 
-Averages
+
 ![Recommended Average Agglomerative Clustering](src/project_diagrams/Recommend_average_agglomerative.jpg)
 
 
 
 
 **With neuro networks**
-Evaluation
+
 ![NN Average Recommendations for Agglomerative Clustering](src/project_diagrams/nn_recommend_average_agglomerative.jpg)
 
-Averages
+
 ![Recommended NN for Agglomerative Clustering](src/project_diagrams/Recommend_NN_agglomerative.jpg)
 
 
