@@ -171,11 +171,26 @@ VCS_GMR/
 
 **Best Performing Clustering:** **Regular Agglomerative**
 
-## Recommendation System
-### Regular Recommendation
+### Recommendation System
+## Regular Recommendation
+
+What uses created model for simmilar movie selection?
 - Uses Agglomerative clusters as the primary similarity metric.
 - Filters based on rating, Metascore, Genre, and numeric features.
 
+### Neural Network Recommendation
+- Uses embedded data for recommendations.
+
+## Evaluation Criteria for this model Movie Recommendations
+- **Genre Match**: Verified via IMDb & Rotten Tomatoes.
+- **Rating Proximity**: Compared across IMDb and Rotten Tomatoes.
+- **Length Similarity**: Thresholds of ±5 and ±10 minutes.
+- **Director Differences**: Style comparison.
+- **Thematic Alignment**: Based on reviews and summaries.
+- **ChatGPT Insights**: AI-based movie context analysis.
+
+
+**Regular**
 Evaluation
 ![Recommended Agglomerative Clustering](src/project_diagrams/Recommend_Agglomerative.jpg)
 
@@ -184,9 +199,8 @@ Averages
 
 
 
-### Neural Network Recommendation
-- Uses embedded data for recommendations.
 
+**With neuro networks**
 Evaluation
 ![NN Average Recommendations for Agglomerative Clustering](src/project_diagrams/nn_recommend_average_agglomerative.jpg)
 
@@ -194,13 +208,7 @@ Averages
 ![Recommended NN for Agglomerative Clustering](src/project_diagrams/Recommend_NN_agglomerative.jpg)
 
 
-## Evaluation Criteria for Movie Recommendations
-- **Genre Match**: Verified via IMDb & Rotten Tomatoes.
-- **Rating Proximity**: Compared across IMDb and Rotten Tomatoes.
-- **Length Similarity**: Thresholds of ±5 and ±10 minutes.
-- **Director Differences**: Style comparison.
-- **Thematic Alignment**: Based on reviews and summaries.
-- **ChatGPT Insights**: AI-based movie context analysis.
+
 
 ---
 
