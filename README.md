@@ -96,17 +96,18 @@ VCS_GMR/
  ![Elbow Method](src/project_diagrams/Elbow_Kmeans.png)
 
   **Dendrogram:**
-  _[Insert Dendrogram Image Here]_
+![Regular Dendrogram](src/project_diagrams/Regular_dendogram.png)
+
 
 - **Silhouette Scores:**
   - K-Means: **0.313**
   - Agglomerative: **0.281**
 
   **Silhouette Score Comparison:**
-  _[Insert Silhouette Score Image Here]_
+![Regular Silhouette Score](src/project_diagrams/Regular_silhouette_score.png)
 
   **Cluster Visualization:**
-  _[Insert Clustering Image Here]_
+![KMeans vs Agglomerative Clustering](src/project_diagrams/Regular_Cluster_Kmeans_vs_Agglomerative.png)
 
 - **Davies-Bouldin Score for KMeans (3 clusters):** **1.076**
 
@@ -116,14 +117,18 @@ VCS_GMR/
 - Autoencoder neural network is built and trained.
 
   **Elbow Method & Dendrogram:**
-  _[Insert NN Elbow & Dendrogram Images Here]_
+![NN Elbow Method](src/project_diagrams/NN_elbow.png)
+
+![NN Dendrogram](src/project_diagrams/NN_dendogram.png)
+
 
 - **Silhouette Scores:**
   - K-Means: **0.4046**
   - Agglomerative: **0.3066**
 
   **Cluster Visualization:**
-  _[Insert Cluster Image Here]_
+![NN Clusters](src/project_diagrams/NN_clusters.png)
+
 
 ### Random Forest Classification
 #### Regular Clustering
@@ -132,14 +137,18 @@ VCS_GMR/
   - F1 Score: **0.60**
   - Precision: **0.62**
   - Recall: **0.60**
-  _[Insert Heatmap K-Means Image Here]_
+    
+![Confusion Matrix for KMeans](src/project_diagrams/Confusion_Kmeans.png)
+
 
 - **Agglomerative Performance:**
   - Accuracy: **0.73**
   - F1 Score: **0.74**
   - Precision: **0.75**
   - Recall: **0.73**
-  _[Insert Heatmap Agglomerative Image Here]_
+  
+![Confusion Matrix for Agglomerative Clustering](src/project_diagrams/Confusion_Agglomerative.png)
+
 
 #### Neural Network Random Forest
 - **K-Means Performance:**
@@ -147,32 +156,61 @@ VCS_GMR/
   - F1 Score: **0.49**
   - Precision: **0.50**
   - Recall: **0.49**
-  _[Insert Heatmap K-Means Image Here]_
+    
+![NN Confusion Matrix for KMeans](src/project_diagrams/nn_confusion_Kmeans.png)
+
 
 - **Agglomerative Performance:**
   - Accuracy: **0.55**
   - F1 Score: **0.55**
   - Precision: **0.55**
   - Recall: **0.55**
-  _[Insert Heatmap Agglomerative Image Here]_
+    
+![NN Confusion Matrix for Agglomerative Clustering](src/project_diagrams/NN_confusion_Agglomerative.png)
+
 
 **Best Performing Clustering:** **Regular Agglomerative**
 
-## Recommendation System
-### Regular Recommendation
+### Recommendation System
+## Regular Recommendation
+
+What uses created model for simmilar movie selection?
 - Uses Agglomerative clusters as the primary similarity metric.
 - Filters based on rating, Metascore, Genre, and numeric features.
 
-### Neural Network Recommendation
+## Neural Network Recommendation
 - Uses embedded data for recommendations.
 
-## Evaluation Criteria for Movie Recommendations
+## Evaluation Criteria for this model Movie Recommendations
+Evaluation was done with ChatGPT.
 - **Genre Match**: Verified via IMDb & Rotten Tomatoes.
 - **Rating Proximity**: Compared across IMDb and Rotten Tomatoes.
 - **Length Similarity**: Thresholds of ±5 and ±10 minutes.
 - **Director Differences**: Style comparison.
 - **Thematic Alignment**: Based on reviews and summaries.
 - **ChatGPT Insights**: AI-based movie context analysis.
+
+
+**Regular**
+
+![Recommended Agglomerative Clustering](src/project_diagrams/Recommend_Agglomerative.jpg)
+
+![Recommended Average Agglomerative Clustering](src/project_diagrams/Recommend_average_agglomerative.jpg)
+
+
+
+
+**With neuro networks**
+
+![Recommended NN for Agglomerative Clustering](src/project_diagrams/Recommend_NN_agglomerative.jpg)
+
+![NN Average Recommendations for Agglomerative Clustering](src/project_diagrams/nn_recommend_average_agglomerative.jpg)
+
+
+
+
+
+
 
 ---
 

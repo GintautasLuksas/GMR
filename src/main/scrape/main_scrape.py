@@ -11,7 +11,6 @@ from selenium.webdriver.chrome.options import Options
 import re
 import os
 
-# Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger()
 
@@ -46,27 +45,22 @@ def load_more_movies_and_scrape(driver, show_more_button_xpath, target_films=330
     and immediately scrapes the newly loaded movies after each click.
     Writes data to CSV every 'batch_size' movies and when errors occur.
     """
-    # List to store all the data
     data = []
 
-    # Track the index of the last movie scraped
     last_scraped_index = 0
 
-    # Start by scraping the initially loaded movies
     movie_titles = driver.find_elements(By.XPATH,
                                         '//*[@id="__next"]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[2]/ul/li/div/div/div/div[1]/div[2]/div[1]/a/h3')
     films_loaded = len(movie_titles)
 
-    # Scrape initially loaded movies
     for i in range(1, films_loaded + 1):
         try:
             data.extend(scrape_movie_data(driver, i))
             last_scraped_index = i
         except Exception as e:
             logger.error(f"Error scraping movie {i}: {e}")
-            data.append([i, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'])  # Append N/A for this movie
+            data.append([i, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'])
 
-    # If fewer movies are already loaded than the target, keep clicking 'Show More'
     while films_loaded < target_films:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(2)  # Allow new content to load
@@ -79,33 +73,30 @@ def load_more_movies_and_scrape(driver, show_more_button_xpath, target_films=330
             show_more_button.click()
             time.sleep(2)  # Allow new content to load
 
-            # After clicking 'Show More', scrape newly loaded movies
             movie_titles = driver.find_elements(By.XPATH,
                                                 '//*[@id="__next"]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[2]/ul/li/div/div/div/div[1]/div[2]/div[1]/a/h3')
             films_loaded = len(movie_titles)
             logger.info(f"Films loaded: {films_loaded}")
 
             # Scrape the newly loaded movies (only the new ones)
-            for i in range(last_scraped_index + 1, films_loaded + 1):  # Ensure valid index
+            for i in range(last_scraped_index + 1, films_loaded + 1):
                 try:
                     data.extend(scrape_movie_data(driver, i))
-                    last_scraped_index = i  # Update the last scraped index
+                    last_scraped_index = i
 
-                    # Write data to CSV after every 'batch_size' movies
                     if len(data) >= batch_size:
                         save_to_csv(data)
-                        data = []  # Clear the data after writing to the CSV file
+                        data = []
 
                 except Exception as e:
                     logger.error(f"Error scraping movie {i}: {e}")
                     data.append(
-                        [i, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'])  # Append N/A for this movie
+                        [i, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'])
 
         except Exception as e:
             logger.warning("No 'Show More' button found or error occurred. Reached the bottom of the page.")
             break
 
-    # Write any remaining data to CSV (if less than 'batch_size')
     if data:
         try:
             save_to_csv(data)
@@ -137,17 +128,15 @@ def scrape_movie_data(driver, i):
         rate_amount = clean_rating_amount(driver.find_element(By.XPATH, rate_amount_xpath).text)
         short_desc = driver.find_element(By.XPATH, short_desc_xpath).text
 
-        # Log each movie's extracted data
         logger.info(f"Scraping Movie {i}: {title}, Year: {year}, Rating: {rate}, Length: {length} min")
 
-        # Handle metascore and group, with N/A if missing
         metascore = 'N/A'
         try:
             metascore_text = driver.find_element(By.XPATH, metascore_xpath).text.strip()
             if metascore_text.isdigit():
                 metascore = int(metascore_text)
         except:
-            pass  # If metascore is not found, it will remain 'N/A'
+            pass
         logger.info(f"Metascore for Movie {i}: {metascore}")
 
         group = 'N/A'
@@ -156,14 +145,13 @@ def scrape_movie_data(driver, i):
             if group_text:
                 group = group_text
         except:
-            pass  # If group is not found, it will remain 'N/A'
+            pass
         logger.info(f"Group for Movie {i}: {group}")
 
         data_row = [i, remove_number_prefix(title), year, rate, length, rate_amount, group, metascore, short_desc]
 
     except Exception as e:
         logger.error(f"Error scraping Movie {i}: {e}")
-        # Append N/A in case of error
         data_row = [i, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A']
 
     return [data_row]
@@ -181,7 +169,6 @@ def save_to_csv(data):
     with open('imdb_movies.csv', mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
 
-        # Write headers only if the file is being created for the first time
         if not file_exists:
             writer.writerow(headers)
 
@@ -256,6 +243,5 @@ def scrape_imdb_data(url, max_movies=3330):
         driver.quit()
 
 
-# Call the scrape_imdb_data function with the IMDb URL
 url = 'https://www.imdb.com/search/title/?title_type=feature&user_rating=7,9.9&num_votes=10000,&sort=user_rating,desc'
 scrape_imdb_data(url)

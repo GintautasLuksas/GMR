@@ -16,37 +16,29 @@ import os
 
 os.environ["LOKY_MAX_CPU_COUNT"] = "4"
 
-# Load dataset
 data = pd.read_csv('clustered_data.csv')
 
-# Prepare feature matrix
 X = data.drop(columns=['KMeans Cluster', 'Agglomerative Cluster', 'Title',
                        'Short Description', 'Directors', 'Star 1', 'Star 2', 'Star 3', 'Genre 2', 'Genre 3',
                        'Metascore'])
-
-# Handle missing values
 imputer = SimpleImputer(strategy='mean')
 X[X.select_dtypes(include=['float64', 'int64']).columns] = imputer.fit_transform(
     X.select_dtypes(include=['float64', 'int64']))
 
-# Encode 'Group' column
 group_mapping = {
     'G': 0, 'PG': 0, 'PG-13': 0, 'Approved': 0, 'Not Rated': 0, 'U': 0, '12': 0, '12A': 0, 'A': 0, 'AA': 0,
     'R': 1, 'X': 1, '18': 1, 'Rejected': 1, 'Passed': 1, '15': 0
 }
 X['Group'] = X['Group'].map(group_mapping)
 
-# One-hot encode 'Genre 1'
 X = pd.get_dummies(X, columns=['Genre 1'], drop_first=True)
 
-# Standardize and apply PCA
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 pca = PCA(n_components=0.95)
 X_pca = pca.fit_transform(X_scaled)
 
 
-# Train-test split
 def train_model(cluster_column, model_name):
     """Trains and evaluates a model for a given cluster column."""
     Y = data[cluster_column]
@@ -57,7 +49,6 @@ def train_model(cluster_column, model_name):
     k_neighbors = max(1, min(3, min_class_count - 1))
     smote = SMOTE(random_state=42, k_neighbors=k_neighbors)
 
-    # RandomForest Classifier
     rf = RandomForestClassifier(random_state=42, class_weight='balanced')
     param_dist = {
         'rf__n_estimators': randint(5, 20),
@@ -77,11 +68,9 @@ def train_model(cluster_column, model_name):
                                          n_iter=10, cv=cv, verbose=2, random_state=42)
         grid_search.fit(X_train, Y_train)
 
-        # Predictions
         Y_pred = grid_search.best_estimator_.predict(X_test)
         Y_prob = grid_search.best_estimator_.predict_proba(X_test)
 
-        # Evaluation Metrics
         print(f"\nPerformance on {model_name} Test Set:")
         print(f"Accuracy: {accuracy_score(Y_test, Y_pred):.2f}")
         print(f"F1 Score: {f1_score(Y_test, Y_pred, average='weighted'):.2f}")

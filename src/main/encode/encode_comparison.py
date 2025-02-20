@@ -14,7 +14,7 @@ import string
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.preprocessing import LabelEncoder
-from scipy.cluster.hierarchy import dendrogram, linkage  # Import for dendrogram
+from scipy.cluster.hierarchy import dendrogram, linkage
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -59,7 +59,7 @@ stars_embeddings = model.encode(data['Cleaned_Stars'].tolist())
 genre_embeddings = model.encode(data['Cleaned_Genre'].tolist())
 group_embeddings = model.encode(data['Cleaned_Group'].tolist())
 
-# Combine all features into final_features
+
 final_features = np.concatenate(
     (numerical_data.values, title_embeddings, description_embeddings, directors_embeddings, stars_embeddings,
      genre_embeddings, group_embeddings, data['Encoded_Group'].values.reshape(-1, 1)), axis=1
@@ -67,7 +67,7 @@ final_features = np.concatenate(
 
 final_features = pd.DataFrame(final_features).apply(pd.to_numeric, errors='coerce').fillna(0).values
 
-# Elbow Method to determine optimal number of clusters for KMeans on final_features
+
 wcss = []
 for k in range(1, 11):
     kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
@@ -84,7 +84,7 @@ plt.xticks(range(1, 11))
 plt.grid()
 plt.show()
 
-# Proceed with the autoencoder training
+
 input_layer = Input(shape=(final_features.shape[1],))
 encoded = Dense(128, activation='relu')(input_layer)
 encoded = Dense(64, activation='relu')(encoded)
@@ -99,7 +99,6 @@ autoencoder.fit(final_features, final_features, epochs=100, batch_size=256, shuf
 encoder = Model(input_layer, encoded)
 encoded_features = encoder.predict(final_features)
 
-# Clustering using KMeans and Agglomerative Clustering
 kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
 kmeans_clusters = kmeans.fit_predict(encoded_features)
 
@@ -119,7 +118,6 @@ plt.ylabel('Euclidean distances')
 plt.xticks(rotation=90)
 plt.show()
 
-# PCA for visualization
 pca = PCA(n_components=2)
 reduced_data = pca.fit_transform(encoded_features)
 

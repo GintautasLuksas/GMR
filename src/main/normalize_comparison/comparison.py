@@ -72,7 +72,6 @@ def compute_gap_statistic(X, k_range):
         kmeans.fit(X)
         inertias.append(kmeans.inertia_)
 
-        # Create random clustering reference
         random_data = np.random.random_sample(size=X.shape)
         kmeans_random = KMeans(n_clusters=k, n_init=10, random_state=42)
         kmeans_random.fit(random_data)
@@ -87,7 +86,6 @@ def compute_gap_statistic(X, k_range):
     plt.show()
 
 
-# Compute Gap Statistic for a range of clusters
 compute_gap_statistic(X, range(1, 11))
 
 # Davies-Bouldin Score for KMeans

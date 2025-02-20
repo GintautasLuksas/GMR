@@ -13,27 +13,21 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import Counter
 
-# Load dataset
 data = pd.read_csv('nn_with_cluster.csv')
 
-# Drop unnecessary columns
 X = data.drop(columns=['KMeans_Cluster', 'Agglomerative_Cluster', 'Title', 'Short Description', 'Directors', 'Star 1', 'Star 2',
                        'Star 3', 'Genre 2', 'Genre 3', 'Metascore'])
 
-# Handle missing values
 numeric_columns = X.select_dtypes(include=['float64', 'int64']).columns
 imputer = SimpleImputer(strategy='mean')
 X[numeric_columns] = imputer.fit_transform(X[numeric_columns])
 
-# Encode categorical variable 'Group'
 group_mapping = {'G': 0, 'PG': 0, 'PG-13': 0, 'Approved': 0, 'Not Rated': 0, 'U': 0, '12': 0, '12A': 0, 'A': 0, 'AA': 0,
                  'R': 1, 'X': 1, '18': 1, 'Rejected': 1, 'Passed': 1, '15': 0}
 X['Group'] = X['Group'].map(group_mapping)
 
-# One-hot encode 'Genre 1'
 X = pd.get_dummies(X, columns=['Genre 1'], drop_first=True)
 
-# Standardization and PCA
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
@@ -41,7 +35,6 @@ pca = PCA(n_components=0.95)
 X_pca = pca.fit_transform(X_scaled)
 
 
-# Function to train and evaluate the model
 def train_and_evaluate(X, Y, model_name):
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42, stratify=Y)
 
@@ -86,6 +79,5 @@ def train_and_evaluate(X, Y, model_name):
     plt.show()
 
 
-# Run for both clusters
 train_and_evaluate(X_pca, data['KMeans_Cluster'], 'KMeans')
 train_and_evaluate(X_pca, data['Agglomerative_Cluster'], 'Agglomerative')

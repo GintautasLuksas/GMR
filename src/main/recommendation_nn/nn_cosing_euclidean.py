@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 
-# Read the CSV files for random and nn clusters
 random_clusters_df = pd.read_csv('nn_cluster2.csv')
 nn_clusters_df = pd.read_csv('nn_cluster.csv')
 
@@ -14,7 +13,6 @@ def clean_genre_column(genre_column):
         return genre_column.strip().lower()
     return ""
 
-# Apply genre cleaning to both random and nn clusters
 random_clusters_df["Genre 1"] = random_clusters_df["Genre 1"].apply(clean_genre_column)
 nn_clusters_df["Genre 1"] = nn_clusters_df["Genre 1"].apply(clean_genre_column)
 nn_clusters_df["Genre 2"] = nn_clusters_df["Genre 2"].apply(clean_genre_column)
@@ -29,26 +27,20 @@ def prepare_numeric_data(df):
 numeric_random_df = prepare_numeric_data(random_clusters_df)
 numeric_nn_df = prepare_numeric_data(nn_clusters_df)
 
-# Create embeddings (numeric arrays) for the random and nn clusters
 random_cluster_embeddings = numeric_random_df.values
 nn_cluster_embeddings = numeric_nn_df.values
 
-# Compute cosine similarity and Euclidean distances between the embeddings
 cosine_sim = cosine_similarity(random_cluster_embeddings, nn_cluster_embeddings)
 distance_matrix = euclidean_distances(random_cluster_embeddings, nn_cluster_embeddings)
 
-# Define weights for cosine similarity and Euclidean distance
 cosine_weight = 0.5
 euclidean_weight = 0.5
 
-# Initialize a list to store the comparison results and a set for recommended titles
 comparison_results_combined = []
 recommended_titles = set()
 
-# Get the number of watched movies
 watched_movie_count = len(random_clusters_df)
 
-# Loop over each movie in the random clusters (watched movies)
 for random_index in range(len(random_clusters_df)):
     random_movie = random_clusters_df.iloc[random_index]
     random_title = random_movie["Title"]
@@ -100,15 +92,12 @@ for random_index in range(len(random_clusters_df)):
     if len(recommended_titles) >= watched_movie_count:
         break  # Stop if we have enough recommendations
 
-# Convert the comparison results to a DataFrame
 comparison_df_combined = pd.DataFrame(comparison_results_combined)
 
-# Sort the DataFrame by the combined score in descending order
 comparison_df_combined = comparison_df_combined.sort_values(by="Combined Score", ascending=False)
 
-# Limit the total number of recommendations to the number of watched movies
+
 comparison_df_combined = comparison_df_combined.head(watched_movie_count)
 
-# Print the final results
 print("Combined Cosine and Euclidean Distance Recommendation (with Genre Match):")
 print(comparison_df_combined.to_string(index=False))
