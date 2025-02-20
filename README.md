@@ -137,6 +137,7 @@ VCS_GMR/
   - F1 Score: **0.60**
   - Precision: **0.62**
   - Recall: **0.60**
+    
 ![Confusion Matrix for KMeans](src/project_diagrams/Confusion_Kmeans.png)
 
 
@@ -145,7 +146,7 @@ VCS_GMR/
   - F1 Score: **0.74**
   - Precision: **0.75**
   - Recall: **0.73**
-  - 
+  
 ![Confusion Matrix for Agglomerative Clustering](src/project_diagrams/Confusion_Agglomerative.png)
 
 
@@ -155,6 +156,7 @@ VCS_GMR/
   - F1 Score: **0.49**
   - Precision: **0.50**
   - Recall: **0.49**
+    
 ![NN Confusion Matrix for KMeans](src/project_diagrams/nn_confusion_Kmeans.png)
 
 
@@ -163,6 +165,7 @@ VCS_GMR/
   - F1 Score: **0.55**
   - Precision: **0.55**
   - Recall: **0.55**
+    
 ![NN Confusion Matrix for Agglomerative Clustering](src/project_diagrams/NN_confusion_Agglomerative.png)
 
 
