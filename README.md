@@ -93,7 +93,8 @@ VCS_GMR/
   - **Chosen Clusters:** 3
 
   **Elbow Method Visualization:**
-  _[Insert Elbow Image Here]_  
+ ![Elbow Method](src/project_diagrams/Elbow_Kmeans.png)
+
   **Dendrogram:**
   _[Insert Dendrogram Image Here]_
 
