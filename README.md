@@ -71,7 +71,7 @@ VCS_GMR/
 ## Project Evaluation
 
 ### Scraping
-- **`main_scrape.py`** scrapes IMDB with filters set for movies rated 9.9 - 7.0, with at least 10,000 user ratings.
+- **`scrape_data.py`** scrapes IMDB with filters set for movies rated 9.9 - 7.0, with at least 10,000 user ratings.
 - **`additional_scrape.py`** collects additional data by pressing the 'info' button, including Directors, Stars, and Genres.
 - 2400 complete movies were scraped.
 - **`merge.py`** merges `imdb_movies.csv` and `additional_data.csv` to create `complete_data.csv`.
@@ -197,22 +197,78 @@ Evaluation was done with ChatGPT.
 - **Thematic Alignment**: Based on reviews and summaries.
 - **ChatGPT Insights**: AI-based movie context analysis.
 
+Agglomerative Clustering Weights
+Genre Match (15):
+
+Rationale: Genre is often a primary factor in determining movie preferences. Ensuring a good match in genres is critical for user satisfaction, so it receives significant weight.
+Rating Proximity (25):
+
+Rationale: User ratings from platforms like IMDb and Rotten Tomatoes are essential indicators of movie quality and audience reception. Given its importance in matching user expectations, this criterion is weighted the highest.
+Length Similarity (15):
+
+Rationale: Movie length can affect user experience, especially for those who prefer shorter or longer films. While important, it is secondary to genre and ratings, hence it has a moderate weight.
+Thematic Alignment (10):
+
+Rationale: Thematic elements contribute to how well a movie resonates with a viewer’s interests. Though significant, it is considered less critical than genre and ratings.
+Metascore (15):
+
+Rationale: Metascores provide an aggregated view of critical reception, which can be valuable in guiding user recommendations. Its weight reflects its importance in conjunction with ratings.
+ChatGPT (20):
+
+Rationale: The ChatGPT evaluation considers broader insights and contextual understanding of movie trends. This subjective evaluation provides a unique perspective, hence it holds a notable weight.
+Embedded Model Weights
+Genre Match (20):
+
+Rationale: Similar to the Agglomerative Clustering model, genre match is crucial for user satisfaction, and its importance is slightly elevated here to ensure recommendations align closely with user preferences.
+Rating Proximity (10):
+
+Rationale: In this model, while ratings still matter, the weight is lower as the embedded model may prioritize other criteria that leverage deeper contextual understanding, potentially relying less on explicit ratings.
+Length Similarity (10):
+
+Rationale: The importance of length is maintained, ensuring that viewers are not overwhelmed or underwhelmed by movie durations.
+Thematic Alignment (20):
+
+Rationale: The embedded model likely has better capabilities in understanding themes and narrative structures, so it is weighted higher, reflecting the algorithm's strength in identifying relevant thematic connections.
+Metascore (5):
+
+Rationale: Metascore is given the lowest weight, as the embedded model may focus more on intrinsic qualities of the movies rather than aggregate scores, suggesting that it seeks to understand the content more deeply than relying solely on critical reception.
+ChatGPT (35):
+
+Rationale: The weight for the ChatGPT evaluation is the highest in this model, reflecting its reliance on broader knowledge and context to enhance the recommendation process. This indicates a stronger emphasis on conversational AI insights and user preferences.
+Conclusion
+The differences in weights between the two models are driven by their respective strengths and underlying methodologies. The Agglomerative Clustering model emphasizes explicit user ratings and genre matching, while the Embedded Model prioritizes thematic connections and insights from conversational AI. These weights allow for a nuanced evaluation of movie recommendations tailored to the specific strengths and capabilities of each approach.
 
 **Regular**
 
-![Recommended Agglomerative Clustering](src/project_diagrams/Recommend_Agglomerative.jpg)
 
-![Recommended Average Agglomerative Clustering](src/project_diagrams/Recommend_average_agglomerative.jpg)
 
 
 
 
 **With Embeded data**
 
-![Recommended NN for Agglomerative Clustering](src/project_diagrams/Recommend_NN_agglomerative.jpg)
 
-![NN Average Recommendations for Agglomerative Clustering](src/project_diagrams/nn_recommend_average_agglomerative.jpg)
 
+
+## Summary of Average Scores:
+**Agglomerative Clustering:**
+
+Genre Match: 15/15 (100%)
+Rating Proximity: 12/25 (48%)
+Length Similarity: 3/15 (20%)
+Thematic Alignment: 6/10 (60%)
+ChatGPT: 6/20 (30%)
+Metascore: 3/15 (20%)
+Total Score: 47/100 (47%)
+
+**Embedded Model:**
+Genre Match: 8/20 (40%)
+Rating Proximity: 8/10 (80%)
+Length Similarity: 3/10 (30%)
+Thematic Alignment: 16/20 (80%)
+ChatGPT: 10/35 (28.57%)
+Metascore: 0/5 (0%)
+Total Score: 48/100 (48%)
 
 
 
