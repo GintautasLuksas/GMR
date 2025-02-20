@@ -182,6 +182,7 @@ What uses created model for simmilar movie selection?
 - Uses embedded data for recommendations.
 
 ## Evaluation Criteria for this model Movie Recommendations
+Evaluation was done with ChatGPT.
 - **Genre Match**: Verified via IMDb & Rotten Tomatoes.
 - **Rating Proximity**: Compared across IMDb and Rotten Tomatoes.
 - **Length Similarity**: Thresholds of ±5 and ±10 minutes.
