@@ -194,7 +194,6 @@ What uses created model for simmilar movie selection?
 
 ![Recommended Agglomerative Clustering](src/project_diagrams/Recommend_Agglomerative.jpg)
 
-
 ![Recommended Average Agglomerative Clustering](src/project_diagrams/Recommend_average_agglomerative.jpg)
 
 
@@ -202,10 +201,12 @@ What uses created model for simmilar movie selection?
 
 **With neuro networks**
 
+![Recommended NN for Agglomerative Clustering](src/project_diagrams/Recommend_NN_agglomerative.jpg)
+
 ![NN Average Recommendations for Agglomerative Clustering](src/project_diagrams/nn_recommend_average_agglomerative.jpg)
 
 
-![Recommended NN for Agglomerative Clustering](src/project_diagrams/Recommend_NN_agglomerative.jpg)
+
 
 
 
