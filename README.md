@@ -72,17 +72,24 @@ VCS_GMR/
 
 ### Scraping
 - **`scrape_data.py`** scrapes IMDB with filters set for movies rated 9.9 - 7.0, with at least 10,000 user ratings.
+![Scrape Data](src/project_diagrams/csv_shorts/scrape_data.jpg)
+
+
 - **`additional_scrape.py`** collects additional data by pressing the 'info' button, including Directors, Stars, and Genres.
 - 2400 complete movies were scraped.
+![Additional Scrape](src/project_diagrams/csv_shorts/additional_scrape.jpg)
+
 - **`merge.py`** merges `imdb_movies.csv` and `additional_data.csv` to create `complete_data.csv`.
 
 ### Cleaning
 - **`cleaning.py`** loads the dataset, performs cleaning operations, and saves the cleaned data.
 - Stars and Genres are distributed into separate columns (up to 3 per movie).
 - After cleaning, 1630 full records remain.
+![Cleaned Data](src/project_diagrams/csv_shorts/cleaned_data.jpg)
 
 ### Normalization
 - **`normalize.py`** uses MinMaxScaler to normalize numeric columns: Year, Length (mins), Rating Amount, Rating, and Metascore.
+![Normalized Data](src/project_diagrams/csv_shorts/normalized_data.jpg)
 
 ### Regular Clustering
 - DBScan, K-Means, and Agglomerative Clustering were tested. DBScan failed and was excluded.
@@ -111,7 +118,11 @@ VCS_GMR/
 
 - **Davies-Bouldin Score for KMeans (3 clusters):** **1.076**
 
-### Clustering with Neural Network
+ 
+![Clustered Data](src/project_diagrams/csv_shorts/clustered_data.jpg)
+
+
+### Clustering with Embeded data
 - Text columns (Title, Short Description, Directors, Stars, Group, Genre) are preprocessed.
 - A pre-trained Sentence Transformer model (`all-MiniLM-L6-v2`) generates embeddings.
 - Autoencoder neural network is built and trained.
@@ -128,6 +139,13 @@ VCS_GMR/
 
   **Cluster Visualization:**
 ![NN Clusters](src/project_diagrams/NN_clusters.png)
+
+
+Clusters from encoded data
+![Embedded with Cluster](src/project_diagrams/csv_shorts/embeded_with_cluster.jpg)
+
+Embeded data with clusters
+![Embedded with Cluster Full](src/project_diagrams/csv_shorts/embeded_with_cluster_full.jpg)
 
 
 ### Random Forest Classification
