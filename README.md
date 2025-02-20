@@ -17,7 +17,7 @@ Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clus
 
 3. **Run the Scraping Script**
    ```bash
-   python main_scrape.py
+   python scrape_data.py
    python additional_scrape.py
    ```
 
@@ -32,22 +32,22 @@ Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clus
    python normalize.py
    ```
 
-6. **Run Regular and NN Clustering**
+6. **Run Regular and Embeded Clustering**
    ```bash
    python comparison.py
    python encode_comparison.py
    ```
 
-7. **Run Regular and NN Clustered Data with Random Forest**
+7. **Run Regular and Enbeded Clustered Data with Random Forest**
    ```bash
    python random_forest.py
-   python nn_random_forest.py
+   python embeded_random_forest.py
    ```
 
-8. **Run Regular and NN Clustering**
+8. **Run Regular and Embeded Clustering**
    ```bash
    python cosing_euclidean.py
-   python nn_cosing_euclidean.py
+   python embeded_cosing_euclidean.py
    ```
 
 ## Project Structure
@@ -57,7 +57,7 @@ VCS_GMR/
 │   ├── main/
 │   │   ├── clean/             # Data cleaning scripts
 │   │   ├── recommendation/    # Clustering and recommendation analysis
-│   │   ├── recommendation_nn/ # Neural network comparison scripts
+│   │   ├── recommendation_embeded/ # Embeded data comparison scripts
 │   │   ├── encode/            # Encoding and processing numerical columns
 │   │   ├── normalize_comparison/ # Normalization and comparison analysis
 │   │   ├── random_forest/     # Random forest model implementations
@@ -150,7 +150,7 @@ VCS_GMR/
 ![Confusion Matrix for Agglomerative Clustering](src/project_diagrams/Confusion_Agglomerative.png)
 
 
-#### Neural Network Random Forest
+#### Embeded Random Forest
 - **K-Means Performance:**
   - Accuracy: **0.49**
   - F1 Score: **0.49**
@@ -183,7 +183,7 @@ What uses created model for simmilar movie selection?
 - cosine_weight = 0.3
 - euclidean_weight = 0.7
 
-## Neural Network Recommendation
+## Embeded Recommendation
 - Uses embedded data for recommendations.
 - cosine_weight = 0.3
 - euclidean_weight = 0.7
@@ -207,7 +207,7 @@ Evaluation was done with ChatGPT.
 
 
 
-**With neuro networks**
+**With Embeded data**
 
 ![Recommended NN for Agglomerative Clustering](src/project_diagrams/Recommend_NN_agglomerative.jpg)
 
