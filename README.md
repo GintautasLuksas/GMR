@@ -32,22 +32,22 @@ Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clus
    python normalize.py
    ```
 
-6. **Run Regular and NN Clustering**
+6. **Run Regular and Embeded Clustering**
    ```bash
    python comparison.py
    python encode_comparison.py
    ```
 
-7. **Run Regular and NN Clustered Data with Random Forest**
+7. **Run Regular and Enbeded Clustered Data with Random Forest**
    ```bash
    python random_forest.py
    python embeded_random_forest.py
    ```
 
-8. **Run Regular and NN Clustering**
+8. **Run Regular and Embeded Clustering**
    ```bash
    python cosing_euclidean.py
-   python nn_cosing_euclidean.py
+   python embeded_cosing_euclidean.py
    ```
 
 ## Project Structure
@@ -57,7 +57,7 @@ VCS_GMR/
 │   ├── main/
 │   │   ├── clean/             # Data cleaning scripts
 │   │   ├── recommendation/    # Clustering and recommendation analysis
-│   │   ├── recommendation_nn/ # Neural network comparison scripts
+│   │   ├── recommendation_embeded/ # Embeded data comparison scripts
 │   │   ├── encode/            # Encoding and processing numerical columns
 │   │   ├── normalize_comparison/ # Normalization and comparison analysis
 │   │   ├── random_forest/     # Random forest model implementations
@@ -150,7 +150,7 @@ VCS_GMR/
 ![Confusion Matrix for Agglomerative Clustering](src/project_diagrams/Confusion_Agglomerative.png)
 
 
-#### Neural Network Random Forest
+#### Embeded Random Forest
 - **K-Means Performance:**
   - Accuracy: **0.49**
   - F1 Score: **0.49**
@@ -172,16 +172,23 @@ VCS_GMR/
 **Best Performing Clustering:** **Regular Agglomerative**
 
 ### Recommendation System
-## Regular Recommendation
+The model for user input immitation currently uses scraped data for movies released between 2014 and 2024 from IMDB page, with user ratings amount of 10,000 or more, to ensure a more diverse selection of films.
+Data proccessed just like original dataset.
 
+
+## Regular Recommendation
 What uses created model for simmilar movie selection?
 - Uses Agglomerative clusters as the primary similarity metric.
 - Filters based on rating, Metascore, Genre, and numeric features.
+- cosine_weight = 0.3
+- euclidean_weight = 0.7
 
-## Neural Network Recommendation
+## Embeded Recommendation
 - Uses embedded data for recommendations.
+- cosine_weight = 0.3
+- euclidean_weight = 0.7
 
-## Evaluation Criteria for this model Movie Recommendations
+## Model results Evaluation
 Evaluation was done with ChatGPT.
 - **Genre Match**: Verified via IMDb & Rotten Tomatoes.
 - **Rating Proximity**: Compared across IMDb and Rotten Tomatoes.
@@ -200,7 +207,7 @@ Evaluation was done with ChatGPT.
 
 
 
-**With neuro networks**
+**With Embeded data**
 
 ![Recommended NN for Agglomerative Clustering](src/project_diagrams/Recommend_NN_agglomerative.jpg)
 
