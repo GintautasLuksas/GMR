@@ -71,7 +71,7 @@ VCS_GMR/
 ## Project Evaluation
 
 ### Scraping
-- **`main_scrape.py`** scrapes IMDB with filters set for movies rated 9.9 - 7.0, with at least 10,000 user ratings.
+- **`scrape_data.py`** scrapes IMDB with filters set for movies rated 9.9 - 7.0, with at least 10,000 user ratings.
 - **`additional_scrape.py`** collects additional data by pressing the 'info' button, including Directors, Stars, and Genres.
 - 2400 complete movies were scraped.
 - **`merge.py`** merges `imdb_movies.csv` and `additional_data.csv` to create `complete_data.csv`.
