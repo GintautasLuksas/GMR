@@ -193,59 +193,39 @@ Evaluation was done with ChatGPT.
 - **Genre Match**: Verified via IMDb & Rotten Tomatoes.
 - **Rating Proximity**: Compared across IMDb and Rotten Tomatoes.
 - **Length Similarity**: Thresholds of ±5 and ±10 minutes.
-- **Director Differences**: Style comparison.
+- **Metascore**: Verified via Metacritic.
 - **Thematic Alignment**: Based on reviews and summaries.
 - **ChatGPT Insights**: AI-based movie context analysis.
 
-Agglomerative Clustering Weights
-Genre Match (15):
+**Agglomerative Clustering Weights:**
 
-Rationale: Genre is often a primary factor in determining movie preferences. Ensuring a good match in genres is critical for user satisfaction, so it receives significant weight.
-Rating Proximity (25):
+Genre Match (15): Important for aligning user preferences with movie types.
+Rating Proximity (25): Highest weight due to its crucial role in matching user expectations based on audience ratings.
+Length Similarity (15): Affects user experience; important but secondary to genre and ratings.
+Thematic Alignment (10): Provides insight into how well a movie resonates with interests, but less critical than genre and ratings.
+Metascore (15): Valuable for critical reception insights, reflecting its importance alongside ratings.
+ChatGPT (20): Offers broader contextual understanding and trends, providing a unique perspective.
 
-Rationale: User ratings from platforms like IMDb and Rotten Tomatoes are essential indicators of movie quality and audience reception. Given its importance in matching user expectations, this criterion is weighted the highest.
-Length Similarity (15):
+**Embedded Model Weights:**
 
-Rationale: Movie length can affect user experience, especially for those who prefer shorter or longer films. While important, it is secondary to genre and ratings, hence it has a moderate weight.
-Thematic Alignment (10):
+Genre Match (20): Slightly more critical than in Agglomerative Clustering, ensuring alignment with user preferences.
+Rating Proximity (10): Lower weight reflects reliance on deeper contextual understanding rather than explicit ratings.
+Length Similarity (10): Maintains importance for user comfort with movie durations.
+Thematic Alignment (20): Increased weight due to the model’s strength in recognizing themes and narratives.
+Metascore (5): Lowest weight, indicating a focus on intrinsic qualities over aggregate scores.
+ChatGPT (35): Highest weight, emphasizing insights from conversational AI to enhance recommendations.
 
-Rationale: Thematic elements contribute to how well a movie resonates with a viewer’s interests. Though significant, it is considered less critical than genre and ratings.
-Metascore (15):
+Conclusion. The weight differences reflect each model's strengths: Agglomerative Clustering focuses on ratings and genres, while the Embedded Model emphasizes thematic understanding and AI insights.
 
-Rationale: Metascores provide an aggregated view of critical reception, which can be valuable in guiding user recommendations. Its weight reflects its importance in conjunction with ratings.
-ChatGPT (20):
 
-Rationale: The ChatGPT evaluation considers broader insights and contextual understanding of movie trends. This subjective evaluation provides a unique perspective, hence it holds a notable weight.
-Embedded Model Weights
-Genre Match (20):
-
-Rationale: Similar to the Agglomerative Clustering model, genre match is crucial for user satisfaction, and its importance is slightly elevated here to ensure recommendations align closely with user preferences.
-Rating Proximity (10):
-
-Rationale: In this model, while ratings still matter, the weight is lower as the embedded model may prioritize other criteria that leverage deeper contextual understanding, potentially relying less on explicit ratings.
-Length Similarity (10):
-
-Rationale: The importance of length is maintained, ensuring that viewers are not overwhelmed or underwhelmed by movie durations.
-Thematic Alignment (20):
-
-Rationale: The embedded model likely has better capabilities in understanding themes and narrative structures, so it is weighted higher, reflecting the algorithm's strength in identifying relevant thematic connections.
-Metascore (5):
-
-Rationale: Metascore is given the lowest weight, as the embedded model may focus more on intrinsic qualities of the movies rather than aggregate scores, suggesting that it seeks to understand the content more deeply than relying solely on critical reception.
-ChatGPT (35):
-
-Rationale: The weight for the ChatGPT evaluation is the highest in this model, reflecting its reliance on broader knowledge and context to enhance the recommendation process. This indicates a stronger emphasis on conversational AI insights and user preferences.
-Conclusion
-The differences in weights between the two models are driven by their respective strengths and underlying methodologies. The Agglomerative Clustering model emphasizes explicit user ratings and genre matching, while the Embedded Model prioritizes thematic connections and insights from conversational AI. These weights allow for a nuanced evaluation of movie recommendations tailored to the specific strengths and capabilities of each approach.
 
 **Regular**
-
-
-
-
+![Alt Text](src/project_diagrams/Final_agglomerative.jpg)
 
 
 **With Embeded data**
+
+![Final Embedded Diagram](src/project_diagrams/Final_embeded.jpg)
 
 
 
