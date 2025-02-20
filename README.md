@@ -219,7 +219,7 @@ Conclusion. The weight differences reflect each model's strengths: Agglomerative
 
 
 
-**Regular**
+**With Regular data**
 
 ![Alt Text](src/project_diagrams/Final_agglomerative.jpg)
 
