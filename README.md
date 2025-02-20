@@ -181,7 +181,7 @@ What uses created model for simmilar movie selection?
 ## Neural Network Recommendation
 - Uses embedded data for recommendations.
 
-## Evaluation Criteria for this model Movie Recommendations
+## Model results Evaluation
 Evaluation was done with ChatGPT.
 - **Genre Match**: Verified via IMDb & Rotten Tomatoes.
 - **Rating Proximity**: Compared across IMDb and Rotten Tomatoes.
