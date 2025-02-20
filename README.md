@@ -173,13 +173,16 @@ VCS_GMR/
 
 ### Recommendation System
 ## Regular Recommendation
-
 What uses created model for simmilar movie selection?
 - Uses Agglomerative clusters as the primary similarity metric.
 - Filters based on rating, Metascore, Genre, and numeric features.
+- cosine_weight = 0.3
+- euclidean_weight = 0.7
 
 ## Neural Network Recommendation
 - Uses embedded data for recommendations.
+- cosine_weight = 0.3
+- euclidean_weight = 0.7
 
 ## Model results Evaluation
 Evaluation was done with ChatGPT.
