@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 
-random_clusters_df = pd.read_csv('nn_cluster2.csv')
-nn_clusters_df = pd.read_csv('nn_cluster.csv')
+random_clusters_df = pd.read_csv('embeded_with_cluster2.csv')
+nn_clusters_df = pd.read_csv('embeded_with_cluster.csv')
 
 def clean_genre_column(genre_column):
     """

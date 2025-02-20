@@ -17,7 +17,7 @@ Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clus
 
 3. **Run the Scraping Script**
    ```bash
-   python main_scrape.py
+   python scrape_data.py
    python additional_scrape.py
    ```
 
@@ -41,7 +41,7 @@ Gintautas Movie Recommendation (GMR) is a project that scrapes, cleans, and clus
 7. **Run Regular and NN Clustered Data with Random Forest**
    ```bash
    python random_forest.py
-   python nn_random_forest.py
+   python embeded_random_forest.py
    ```
 
 8. **Run Regular and NN Clustering**

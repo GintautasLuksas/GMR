@@ -14,7 +14,7 @@ import os
 
 os.environ["LOKY_MAX_CPU_COUNT"] = "4"
 
-data = pd.read_csv('nn_with_cluster2.csv')
+data = pd.read_csv('embeded_with_cluster2.csv')
 
 print("Initial data preview:")
 print(data.head())

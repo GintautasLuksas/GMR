@@ -1,6 +1,6 @@
 import pandas as pd
 
-data = pd.read_csv('nn_with_cluster.csv')
+data = pd.read_csv('embeded_with_cluster.csv')
 
 group_unique_values = data['Group'].unique()
 

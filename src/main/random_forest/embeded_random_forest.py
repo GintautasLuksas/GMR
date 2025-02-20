@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import Counter
 
-data = pd.read_csv('nn_with_cluster.csv')
+data = pd.read_csv('embeded_with_cluster.csv')
 
 X = data.drop(columns=['KMeans_Cluster', 'Agglomerative_Cluster', 'Title', 'Short Description', 'Directors', 'Star 1', 'Star 2',
                        'Star 3', 'Genre 2', 'Genre 3', 'Metascore'])
