@@ -3,9 +3,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 def normalize_data(input_path, output_paths):
-    """
-    Normalizes selected columns in the dataframe using MinMaxScaler, excluding 'Group'.
-    """
+    """Normalizes selected columns in the dataframe using MinMaxScaler, excluding 'Group'."""
     data = pd.read_csv(input_path)
 
     columns_to_normalize = ['Year', 'Length (mins)', 'Rating Amount', 'Metascore', 'Rating']

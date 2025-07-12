@@ -16,18 +16,14 @@ logger = logging.getLogger()
 
 
 def zoom_out(driver, zoom_percentage=50):
-    """
-    Zoom out the page to the specified percentage.
-    """
+    """Zoom out the page to the specified percentage."""
     driver.execute_script(f"document.body.style.zoom='{zoom_percentage}%'")
     logger.info(f"Page zoom set to {zoom_percentage}%.")
 
 
 def accept_cookies(driver):
-    """
-    Accept cookies if the button is present on the page.
-    Waits for the accept button to appear and clicks it.
-    """
+    """ Accept cookies if the button is present on the page.
+    Waits for the accept button to appear and clicks it."""
     try:
         accept_button = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div/div/div[2]/div/button[2]'))
@@ -40,11 +36,9 @@ def accept_cookies(driver):
 
 
 def load_more_movies_and_scrape(driver, show_more_button_xpath, target_films=3300, batch_size=50):
-    """
-    Scrolls down and clicks 'Show More' to load movies until the target count is reached,
+    """Scrolls down and clicks 'Show More' to load movies until the target count is reached,
     and immediately scrapes the newly loaded movies after each click.
-    Writes data to CSV every 'batch_size' movies and when errors occur.
-    """
+    Writes data to CSV every 'batch_size' movies and when errors occur."""
     data = []
 
     last_scraped_index = 0
@@ -179,9 +173,7 @@ def save_to_csv(data):
 
 
 def time_to_minutes(time_str):
-    """
-    Convert a time string (e.g., "2h 30m") to total minutes.
-    """
+    """Convert a time string (e.g., "2h 30m") to total minutes."""
     total_minutes = 0
     parts = time_str.split()
     for part in parts:
@@ -193,9 +185,7 @@ def time_to_minutes(time_str):
 
 
 def clean_rating_amount(rate_amount_text):
-    """
-    Clean and convert rating amount text to an integer.
-    """
+    """Clean and convert rating amount text to an integer."""
     cleaned_text = rate_amount_text.replace('(', '').replace(')', '').replace(' ', '').replace('K', '').replace('k',
                                                                                                                 '').replace(
         'M', '').replace('m', '')
@@ -210,17 +200,13 @@ def clean_rating_amount(rate_amount_text):
 
 
 def remove_number_prefix(title):
-    """
-    Remove numeric prefixes like '1. ' or '1.' from movie titles.
-    """
+    """Remove numeric prefixes like '1. ' or '1.' from movie titles."""
     return re.sub(r'^\d+\.\s*', '', title)
 
 
 def scrape_imdb_data(url, max_movies=3330):
-    """
-    Scrape IMDb movie data from the given URL, including Metascore and Short Description.
-    Limits the number of movies to scrape.
-    """
+    """ Scrape IMDb movie data from the given URL, including Metascore and Short Description.
+    Limits the number of movies to scrape."""
     options = Options()
     options.headless = True  # Run Chrome in headless mode to speed things up
     driver_service = Service(ChromeDriverManager().install())
